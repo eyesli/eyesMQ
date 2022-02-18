@@ -1,4 +1,4 @@
-package com.levil.eyesmq;
+package com.levil.broker;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
