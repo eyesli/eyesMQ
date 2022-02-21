@@ -8,7 +8,6 @@
         <groupId>com.levil</groupId>
         <artifactId>eyesMQ-all</artifactId>
         <version>${revision}</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
     <packaging>jar</packaging>
     <artifactId>eyesMQ-core</artifactId>
