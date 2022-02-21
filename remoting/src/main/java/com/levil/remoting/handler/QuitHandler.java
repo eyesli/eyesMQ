@@ -11,14 +11,14 @@ public class QuitHandler extends ChannelInboundHandlerAdapter {
 
     // 当连接断开时触发 inactive 事件
     @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+    public void channelInactive(ChannelHandlerContext ctx) {
 //        SessionFactory.getSession().unbind(ctx.channel());
         log.debug("{} 已经断开", ctx.channel());
     }
 
     // 当出现异常时触发
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
 //        SessionFactory.getSession().unbind(ctx.channel());
         log.debug("{} 已经异常断开 异常是{}", ctx.channel(), cause.getMessage());
     }

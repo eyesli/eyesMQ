@@ -5,21 +5,23 @@
 
     <groupId>com.levil</groupId>
     <artifactId>eyesMQ-all</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <name>eyesMQ-all</name>
     <description>eyesMQ-all</description>
+    <packaging>pom</packaging>
     <properties>
         <java.version>1.8</java.version>
+        <revision>1.0.0</revision>
         <spring-boot-dependencies.version>2.6.3</spring-boot-dependencies.version>
-
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
     </properties>
-    <packaging>pom</packaging>
     <!-- 子模块管理 -->
     <modules>
         <module>config</module>
         <module>broker</module>
         <module>core</module>
-        <module>naming</module>
+        <module>nameser</module>
         <module>api</module>
         <module>client</module>
         <module>common</module>
@@ -35,6 +37,46 @@
                     <version>${spring-boot-dependencies.version}</version>
                     <type>pom</type>
                     <scope>import</scope>
+                </dependency>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>eyesMQ-config</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>eyesMQ-broker</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>eyesMQ-core</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>eyesMQ-nameser</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>eyesMQ-api</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>eyesMQ-client</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>eyesMQ-common</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>eyesMQ-remoting</artifactId>
+                    <version>${project.version}</version>
                 </dependency>
             </dependencies>
     </dependencyManagement>
