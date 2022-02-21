@@ -12,11 +12,11 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(1)
 @Slf4j
-public class NettyServerRunner implements CommandLineRunner {
+public class NettyClientRunner implements CommandLineRunner {
     private final NettyClient server;
 
     @Autowired
-    public NettyServerRunner(NettyClient server) {
+    public NettyClientRunner(NettyClient server) {
         this.server = server;
     }
 
