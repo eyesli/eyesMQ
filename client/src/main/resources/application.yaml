@@ -1,4 +1,4 @@
 server:
-  port: 8000
+  port: 7000
 serializer:
   algorithm: Json

@@ -22,10 +22,7 @@
             <artifactId>eyesMQ-remoting</artifactId>
             <groupId>${project.groupId}</groupId>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
+
     </dependencies>
     <build>
         <plugins>
