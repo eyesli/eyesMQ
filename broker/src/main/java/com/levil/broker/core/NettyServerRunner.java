@@ -3,6 +3,7 @@ package com.levil.broker.core;
 
 import com.levil.broker.config.ServerList;
 import com.levil.broker.naming.NettyServer;
+import com.levil.broker.service.BrokerServer;
 import com.levil.core.broker.BrokerServerMember;
 import com.levil.remoting.client.NettyClient;
 import lombok.extern.slf4j.Slf4j;
@@ -24,11 +25,9 @@ public class NettyServerRunner implements  CommandLineRunner, ApplicationListene
 
     @Autowired
     private  NettyServer server;
+    @Autowired
+    private BrokerServer brokerServer;
 
-    @Autowired
-    private ServerList serverList;
-    @Autowired
-    private NettyClient client;
 
    // onApplicationEvent 执行靠前Tomcat 发布事件执行
     @Override
@@ -36,11 +35,9 @@ public class NettyServerRunner implements  CommandLineRunner, ApplicationListene
         new Thread(() -> server.start()).start();
     }
 
+    //springboot启动之后
     @Override
     public void run(String... args) {
-        List<BrokerServerMember> serverList = this.serverList.getServerList();
-        for (BrokerServerMember sm : serverList) {
-            new Thread(() -> client.start(sm.getIp(),sm.getPort())).start();
-        }
+        this.brokerServer.report();
     }
 }
