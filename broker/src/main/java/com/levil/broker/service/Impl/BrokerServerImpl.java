@@ -1,5 +1,6 @@
 package com.levil.broker.service.Impl;
 
+import com.levil.broker.Manager.ServerManage;
 import com.levil.broker.config.ServerList;
 import com.levil.broker.service.BrokerServer;
 import com.levil.core.broker.BrokerServerMember;
@@ -18,6 +19,8 @@ public class BrokerServerImpl implements BrokerServer {
     private ServerList serverList;
     @Autowired
     private NettyClient client;
+    @Autowired
+    private ServerManage serverManage;
 
     @Override
     public void register(BrokerServerMember bs) {
@@ -45,5 +48,6 @@ public class BrokerServerImpl implements BrokerServer {
         for (BrokerServerMember sm : serverList) {
             new Thread(() -> client.start(sm.getIp(),sm.getPort())).start();
         }
+        serverManage.register();
     }
 }
