@@ -1,5 +1,5 @@
 package com.levil.remoting;
 
 public interface RemotingClient{
-    void start();
+    void start(String ip ,int port);
 }

@@ -1,4 +1,7 @@
 server:
   port: 8000
-serializer:
-  algorithm: Json
+
+broker:
+  server: 172.28.192.1:9000,172.28.192.1:9001,172.28.192.1:9002
+netty:
+  port: 9000

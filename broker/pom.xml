@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.levil</groupId>
         <artifactId>eyesMQ-all</artifactId>
-        <version>${revision}</version>
+        <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>eyesMQ-broker</artifactId>

@@ -1,4 +1,4 @@
-package com.levil.broker.naming;
+package com.levil.remoting.client;
 
 
 import com.levil.remoting.RemotingClient;
@@ -20,6 +20,7 @@ import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
 import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -27,7 +28,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 @Component
-public class NettyClient  implements RemotingClient {
+public class NettyClient implements RemotingClient {
 
     @Override
     public void start(String ip ,int port) {
@@ -58,7 +59,7 @@ public class NettyClient  implements RemotingClient {
                             IdleStateEvent event = (IdleStateEvent) evt;
                             // 触发了写空闲事件
                             if (event.state() == IdleState.WRITER_IDLE) {
-                                log.debug("3s 没有写数据了，发送一个心跳包");
+                                log.info("3s 没有写数据了，发送一个心跳包");
                                 ctx.writeAndFlush(new PingMessage());
                             }
                         }
@@ -113,12 +114,6 @@ public class NettyClient  implements RemotingClient {
                                 while (true) {
                                     System.out.println("==================================");
                                     System.out.println("send [username] [content]");
-                                    System.out.println("gsend [group name] [content]");
-                                    System.out.println("gcreate [group name] [m1,m2,m3...]");
-                                    System.out.println("gmembers [group name]");
-                                    System.out.println("gjoin [group name]");
-                                    System.out.println("gquit [group name]");
-                                    System.out.println("quit");
                                     System.out.println("==================================");
                                     String command = null;
                                     try {

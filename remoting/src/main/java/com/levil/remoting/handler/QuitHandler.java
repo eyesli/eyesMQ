@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @ChannelHandler.Sharable
-public class QuitHandler extends ChannelInboundHandlerAdapter {
+public class QuitHandler extends ChannelInboundHandlerAdapter{
 
     // 当连接断开时触发 inactive 事件
     @Override

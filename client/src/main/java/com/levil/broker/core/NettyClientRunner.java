@@ -8,6 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 
 @Component
 @Order(1)
@@ -22,6 +24,7 @@ public class NettyClientRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        server.start();
+        System.out.println("NettyClientRunner start = " + Arrays.toString(args));
+        server.start("localhost",9000);
     }
 }

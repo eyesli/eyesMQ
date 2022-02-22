@@ -3,6 +3,9 @@ package com.levil.remoting.message;
 import lombok.Data;
 import lombok.ToString;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 @Data
 @ToString(callSuper = true)
 public class ChatRequestMessage extends Message {
@@ -23,4 +26,5 @@ public class ChatRequestMessage extends Message {
     public int getMessageType() {
         return ChatRequestMessage;
     }
+
 }

@@ -212,6 +212,7 @@ public class ApplicationUtils implements ApplicationContextInitializer<Configura
     
     @Override
     public void initialize(ConfigurableApplicationContext context) {
+        System.out.println("ApplicationUtils ConfigurableApplicationContext start = " + context);
         applicationContext = context;
     }
 }
