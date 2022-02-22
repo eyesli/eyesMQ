@@ -8,12 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Locale;
 
-/**
- * string util.
- *
- * @author Nacos
- * @author zzq
- */
+
 public class StringUtils {
     
     public static final String DOT = ".";
