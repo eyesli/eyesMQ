@@ -35,9 +35,12 @@ public class ServerList {
         this.ServerAndPortList= serverAndPortList;
         this.ServerList= serverAndPortList.stream().map(e->{
             String[] strings = e.split(":");
+            String ip = strings[0];
+            int port = Integer.parseInt(strings[1]);
             BrokerServerMember brokerServerMember = new BrokerServerMember();
-            brokerServerMember.setIp(strings[0]);
-            brokerServerMember.setPort(Integer.parseInt(strings[1]));
+            brokerServerMember.setBrokerServerId(new DefaultIdGenerator(ip, port).generateId());
+            brokerServerMember.setIp(ip);
+            brokerServerMember.setPort(port);
             brokerServerMember.setNodeState(NodeState.DOWN);
             return brokerServerMember;
         }).collect(Collectors.toList());

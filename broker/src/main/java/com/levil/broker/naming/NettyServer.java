@@ -16,6 +16,7 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
 
+import io.netty.util.concurrent.GenericFutureListener;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,13 +25,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class NettyServer implements RemotingServer {
 
+
     @Autowired
     private ServerList serverList;
 
+    private  NioEventLoopGroup boss;
+
+    private  NioEventLoopGroup worker;
+    private  Boolean aBoolean=false;
+
     @Override
     public void start() {
-        NioEventLoopGroup boss = new NioEventLoopGroup();
-        NioEventLoopGroup worker = new NioEventLoopGroup();
+
+        boss = new NioEventLoopGroup();
+        worker = new NioEventLoopGroup();
         LoggingHandler LOGGING_HANDLER = new LoggingHandler(LogLevel.DEBUG);
         MessageCodecSharable MESSAGE_CODEC = new MessageCodecSharable();
         LoginRequestMessageHandler LOGIN_HANDLER = new LoginRequestMessageHandler();
@@ -54,14 +62,28 @@ public class NettyServer implements RemotingServer {
                     ch.pipeline().addLast(QUIT_HANDLER);
                 }
             });
-            Channel channel = serverBootstrap.bind(this.serverList.getNettyPort()).sync().channel();
-            channel.closeFuture().sync();
+//            Channel channel = serverBootstrap.bind(this.serverList.getNettyPort()).sync().channel();
+            ChannelFuture sync = serverBootstrap.bind(this.serverList.getNettyPort()).sync();
+            sync.addListener(new GenericFutureListener<ChannelFuture>() {
+                @Override
+                public void operationComplete(ChannelFuture future) throws Exception {
+                    log.info("Netty init over,result:{}", future.isSuccess());
+                    aBoolean=future.isSuccess();
+                }
+            });
+            sync.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             log.error("server error", e);
         } finally {
             boss.shutdownGracefully();
             worker.shutdownGracefully();
         }
+    }
+
+    @Override
+    public void shutDown() {
+        boss.shutdownGracefully();
+        worker.shutdownGracefully();
     }
 
 }

@@ -148,7 +148,7 @@ public class NettyClient implements RemotingClient {
                         // 在出现异常时触发
                         @Override
                         public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-                            log.debug("连接已经断开，按任意键退出..{}", cause.getMessage());
+                            log.debug("XXX连接已经断开，按任意键退出..{}", cause.getMessage());
                             EXIT.set(true);
                         }
                     });

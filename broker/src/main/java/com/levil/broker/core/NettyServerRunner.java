@@ -21,23 +21,17 @@ import java.util.List;
 @Component
 @Order(1)
 @Slf4j
-public class NettyServerRunner implements  CommandLineRunner, ApplicationListener<WebServerInitializedEvent>{
+public class NettyServerRunner implements  CommandLineRunner{
 
     @Autowired
     private  NettyServer server;
     @Autowired
     private BrokerServer brokerServer;
 
-
-   // onApplicationEvent 执行靠前Tomcat 发布事件执行
-    @Override
-    public void onApplicationEvent(WebServerInitializedEvent event) {
-        new Thread(() -> server.start()).start();
-    }
-
     //springboot启动之后
     @Override
-    public void run(String... args) {
+    public void run(String... args) throws InterruptedException {
+        new Thread(() -> server.start()).start();
         this.brokerServer.report();
     }
 }

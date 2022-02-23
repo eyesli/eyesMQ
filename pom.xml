@@ -16,6 +16,7 @@
         <maven.compiler.target>8</maven.compiler.target>
         <commons-io.version>2.7</commons-io.version>
         <commons-collections.version>3.2.2</commons-collections.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <!-- 子模块管理 -->
     <modules>
