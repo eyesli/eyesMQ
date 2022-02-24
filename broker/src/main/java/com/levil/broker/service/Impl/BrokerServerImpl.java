@@ -1,6 +1,6 @@
 package com.levil.broker.service.Impl;
 
-import com.levil.broker.Manager.ServerManage;
+import com.levil.core.broker.Manager.ServerManage;
 import com.levil.broker.config.ServerList;
 import com.levil.broker.service.BrokerServer;
 import com.levil.core.broker.BrokerServerMember;
@@ -46,7 +46,7 @@ public class BrokerServerImpl implements BrokerServer {
     public void report() {
         List<BrokerServerMember> serverList = this.serverList.getServerList();
         for (BrokerServerMember sm : serverList) {
-            new Thread(() -> client.start(sm.getIp(),sm.getPort())).start();
+            new Thread(() -> client.start(sm.getIp(),sm.getPort(),true)).start();
         }
         serverManage.register();
     }

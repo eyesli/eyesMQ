@@ -1,4 +1,4 @@
-package com.levil.broker.Manager;
+package com.levil.core.broker.Manager;
 
 public interface ServerManage {
     void register();

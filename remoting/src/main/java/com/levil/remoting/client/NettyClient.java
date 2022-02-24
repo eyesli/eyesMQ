@@ -32,7 +32,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class NettyClient implements RemotingClient {
 
     @Override
-    public void start(String ip ,int port) {
+    public void start(String ip, int port, Boolean heart) {
         NioEventLoopGroup group = new NioEventLoopGroup();
         LoggingHandler LOGGING_HANDLER = new LoggingHandler(LogLevel.DEBUG);
         MessageCodecSharable MESSAGE_CODEC = new MessageCodecSharable();
@@ -43,13 +43,14 @@ public class NettyClient implements RemotingClient {
         Scanner scanner = new Scanner(System.in);
         try {
             Bootstrap bootstrap = new Bootstrap();
-            bootstrap.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 3000);
+            bootstrap.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000);
             bootstrap.channel(NioSocketChannel.class);
             bootstrap.group(group);
             bootstrap.handler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
                     ch.pipeline().addLast(new ProcotolFrameDecoder());
+                    ch.pipeline().addLast(LOGGING_HANDLER);
                     ch.pipeline().addLast(MESSAGE_CODEC);
                     // 用来判断是不是 读空闲时间过长，或 写空闲时间过长
                     // 3s 内如果没有向服务器写数据，会触发一个 IdleState#WRITER_IDLE 事件
@@ -57,13 +58,21 @@ public class NettyClient implements RemotingClient {
                     // ChannelDuplexHandler 可以同时作为入站和出站处理器
                     ch.pipeline().addLast(new ChannelDuplexHandler() {
                         // 用来触发特殊事件
+                        int count = 1;
+
                         @Override
-                        public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception{
+                        public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
                             IdleStateEvent event = (IdleStateEvent) evt;
                             // 触发了写空闲事件
                             if (event.state() == IdleState.WRITER_IDLE) {
-                                log.info("3s 没有写数据了，发送一个心跳包");
-                                ctx.writeAndFlush(new PingMessage());
+                                if (count >= 5 && heart) {
+                                    log.info("心跳通过，关闭心跳");
+                                    group.shutdownGracefully();
+                                } else {
+                                    log.info("3s 没有写数据了，发送一个心跳包");
+                                    ctx.writeAndFlush(new PingMessage());
+                                }
+                                count++;
                             }
                         }
                     });
@@ -90,12 +99,12 @@ public class NettyClient implements RemotingClient {
                             new Thread(() -> {
                                 System.out.println("请输入用户名:");
                                 String username = scanner.nextLine();
-                                if(EXIT.get()){
+                                if (EXIT.get()) {
                                     return;
                                 }
                                 System.out.println("请输入密码:");
                                 String password = scanner.nextLine();
-                                if(EXIT.get()){
+                                if (EXIT.get()) {
                                     return;
                                 }
                                 // 构造消息对象
@@ -124,11 +133,11 @@ public class NettyClient implements RemotingClient {
                                     } catch (Exception e) {
                                         break;
                                     }
-                                    if(EXIT.get()){
+                                    if (EXIT.get()) {
                                         return;
                                     }
                                     String[] s = command.split(" ");
-                                    switch (s[0]){
+                                    switch (s[0]) {
                                         case "send":
                                             ctx.writeAndFlush(new ChatRequestMessage(username, s[1], s[2]));
                                             break;
@@ -160,7 +169,8 @@ public class NettyClient implements RemotingClient {
             ChannelFuture connect = bootstrap.connect(ip, port);
             connect.addListener((GenericFutureListener<ChannelFuture>) f -> {
                 if (!f.isSuccess()) {
-                    log.info("连接失败!在10s之后准备尝试重连! doConnect => {}:{}", ip, port);
+                    Throwable cause = f.cause();
+                    log.info("连接失败!cause=>{}! doConnect => {}:{}", cause, ip, port);
                 } else {
                     log.info("连接成功: localAddress => {} remoteAddress => {}", f.channel().localAddress(), f.channel().remoteAddress());
                 }
