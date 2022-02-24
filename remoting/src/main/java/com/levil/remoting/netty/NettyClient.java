@@ -1,4 +1,4 @@
-package com.levil.remoting.client;
+package com.levil.remoting.netty;
 
 
 import com.levil.core.broker.BrokerServerMember;

@@ -2,6 +2,7 @@ package com.levil.broker.core;
 
 
 import com.levil.broker.service.BrokerServer;
+import com.levil.remoting.netty.NettyServer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -15,11 +16,10 @@ import org.springframework.stereotype.Component;
 public class NettyServerRunner implements  CommandLineRunner{
 
     @Autowired
-    private  NettyServer server;
+    private NettyServer server;
     @Autowired
     private BrokerServer brokerServer;
 
-    //springboot启动之后
     @Override
     public void run(String... args) {
          server.start(state -> {

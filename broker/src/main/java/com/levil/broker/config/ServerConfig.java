@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 
 @Data
 @Component
-public class ServerList {
+public class ServerConfig {
 
     @Value("${broker.server}")
     private String configServer;

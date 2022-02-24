@@ -1,14 +1,13 @@
-package com.levil.broker.core;
+package com.levil.remoting.netty;
 
 
-import com.levil.broker.config.ServerList;
 import com.levil.core.broker.BrokerServerMember;
 import com.levil.core.broker.Manager.ServerManage;
 import com.levil.core.broker.NodeState;
 import com.levil.remoting.RemotingServer;
 import com.levil.remoting.handler.HeartbeatHandler;
-import com.levil.remoting.handler.RequestMessageHandler;
 import com.levil.remoting.handler.QuitHandler;
+import com.levil.remoting.handler.RequestMessageHandler;
 import com.levil.remoting.protocol.MessageCodecSharable;
 import com.levil.remoting.protocol.ProcotolFrameDecoder;
 import io.netty.bootstrap.ServerBootstrap;
@@ -28,8 +27,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class NettyServer implements RemotingServer {
 
-    @Autowired
-    private ServerList serverList;
+
 
     @Autowired
     private ServerManage serverManage;
@@ -67,7 +65,7 @@ public class NettyServer implements RemotingServer {
                     ch.pipeline().addLast(QUIT_HANDLER);
                 }
             });
-            ChannelFuture sync = serverBootstrap.bind(this.serverList.getNettyPort()).sync();
+            ChannelFuture sync = serverBootstrap.bind(this.serverManage.getSelf().getPort()).sync();
             sync.addListener((GenericFutureListener<ChannelFuture>) future -> {
                 log.info("Netty init over,result:{}", future.isSuccess());
                 callBack.setState(future.isSuccess());

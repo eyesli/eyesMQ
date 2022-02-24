@@ -1,10 +1,9 @@
 package com.levil.broker.service.Impl;
 
-import com.levil.core.broker.Manager.ServerManage;
-import com.levil.broker.config.ServerList;
 import com.levil.broker.service.BrokerServer;
 import com.levil.core.broker.BrokerServerMember;
-import com.levil.remoting.client.NettyClient;
+import com.levil.core.broker.Manager.ServerManage;
+import com.levil.remoting.netty.NettyClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,8 +14,6 @@ import java.util.List;
 @Slf4j
 public class BrokerServerImpl implements BrokerServer {
 
-    @Autowired
-    private ServerList serverList;
     @Autowired
     private NettyClient client;
     @Autowired
