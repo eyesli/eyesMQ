@@ -1,6 +1,10 @@
 package com.levil.remoting.client;
 
 
+import com.levil.core.broker.BrokerServerMember;
+import com.levil.core.broker.DefaultIdGenerator;
+import com.levil.core.broker.Manager.ServerManage;
+import com.levil.core.broker.NodeState;
 import com.levil.remoting.RemotingClient;
 import com.levil.remoting.message.ChatRequestMessage;
 import com.levil.remoting.message.LoginRequestMessage;
@@ -20,8 +24,10 @@ import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.concurrent.GenericFutureListener;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -31,6 +37,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Component
 public class NettyClient implements RemotingClient {
 
+
+    @Autowired
+    private ServerManage serverManage;
     @Override
     public void start(String ip, int port, Boolean heart) {
         NioEventLoopGroup group = new NioEventLoopGroup();
@@ -43,7 +52,7 @@ public class NettyClient implements RemotingClient {
         Scanner scanner = new Scanner(System.in);
         try {
             Bootstrap bootstrap = new Bootstrap();
-            bootstrap.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000);
+            bootstrap.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000);
             bootstrap.channel(NioSocketChannel.class);
             bootstrap.group(group);
             bootstrap.handler(new ChannelInitializer<SocketChannel>() {
@@ -53,8 +62,8 @@ public class NettyClient implements RemotingClient {
                     ch.pipeline().addLast(LOGGING_HANDLER);
                     ch.pipeline().addLast(MESSAGE_CODEC);
                     // 用来判断是不是 读空闲时间过长，或 写空闲时间过长
-                    // 3s 内如果没有向服务器写数据，会触发一个 IdleState#WRITER_IDLE 事件
-                    ch.pipeline().addLast(new IdleStateHandler(0, 3, 0, TimeUnit.SECONDS));
+                    // 10s 内如果没有向服务器写数据，会触发一个 IdleState#WRITER_IDLE 事件
+                    ch.pipeline().addLast(new IdleStateHandler(0, 5, 0, TimeUnit.SECONDS));
                     // ChannelDuplexHandler 可以同时作为入站和出站处理器
                     ch.pipeline().addLast(new ChannelDuplexHandler() {
                         // 用来触发特殊事件
@@ -69,7 +78,7 @@ public class NettyClient implements RemotingClient {
                                     log.info("心跳通过，关闭心跳");
                                     group.shutdownGracefully();
                                 } else {
-                                    log.info("3s 没有写数据了，发送一个心跳包");
+                                    log.info("5s 没有写数据了，发送一个心跳包");
                                     ctx.writeAndFlush(new PingMessage());
                                 }
                                 count++;
@@ -172,6 +181,11 @@ public class NettyClient implements RemotingClient {
                     Throwable cause = f.cause();
                     log.info("连接失败!cause=>{}! doConnect => {}:{}", cause, ip, port);
                 } else {
+                    String generateId = new DefaultIdGenerator(ip, port).generateId();
+                    Map<String, BrokerServerMember> allServerMemberMap = serverManage.getAllServerMemberMap();
+                    BrokerServerMember brokerServerMember = allServerMemberMap.get(generateId);
+                    brokerServerMember.setNodeState(NodeState.UP);
+                    serverManage.update(brokerServerMember);
                     log.info("连接成功: localAddress => {} remoteAddress => {}", f.channel().localAddress(), f.channel().remoteAddress());
                 }
             });

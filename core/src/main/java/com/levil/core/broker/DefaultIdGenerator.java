@@ -44,6 +44,6 @@ public class DefaultIdGenerator implements IdGenerator {
     
     @Override
     public String generateId() {
-        return ip + ID_DELIMITER + port + ID_DELIMITER  + ID_DELIMITER ;
+        return ip + ID_DELIMITER + port;
     }
 }

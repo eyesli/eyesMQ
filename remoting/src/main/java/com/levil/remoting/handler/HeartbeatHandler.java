@@ -14,7 +14,7 @@ public class HeartbeatHandler {
     private ChannelDuplexHandler channelDuplexHandler;
 
     public static IdleStateHandler getIdleStateHandler() {
-        return new IdleStateHandler(30, 0, 0);
+        return new IdleStateHandler(20, 0, 0);
     }
 
     public static ChannelDuplexHandler getChannelDuplexHandler() {
@@ -25,7 +25,7 @@ public class HeartbeatHandler {
                 IdleStateEvent event = (IdleStateEvent) evt;
                 // 触发了读空闲事件
                 if (event.state() == IdleState.READER_IDLE) {
-                    log.debug("已经 30s 没有读到数据了");
+                    log.info("已经 25s 没有读到数据了");
                     // TODO: 02/22/22  读空闲达到了几次，也视为断开
                     ctx.channel().close();
                 }

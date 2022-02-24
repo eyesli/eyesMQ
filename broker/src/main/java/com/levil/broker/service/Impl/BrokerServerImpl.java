@@ -44,10 +44,9 @@ public class BrokerServerImpl implements BrokerServer {
 
     @Override
     public void report() {
-        List<BrokerServerMember> serverList = this.serverList.getServerList();
+        List<BrokerServerMember> serverList = this.serverManage.getAllServerMemberList();
         for (BrokerServerMember sm : serverList) {
             new Thread(() -> client.start(sm.getIp(),sm.getPort(),true)).start();
         }
-        serverManage.register();
     }
 }

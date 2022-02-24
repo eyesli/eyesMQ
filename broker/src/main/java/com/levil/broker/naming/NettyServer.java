@@ -2,20 +2,23 @@ package com.levil.broker.naming;
 
 
 import com.levil.broker.config.ServerList;
+import com.levil.core.broker.BrokerServerMember;
+import com.levil.core.broker.Manager.ServerManage;
+import com.levil.core.broker.NodeState;
 import com.levil.remoting.RemotingServer;
 import com.levil.remoting.handler.HeartbeatHandler;
 import com.levil.remoting.handler.LoginRequestMessageHandler;
 import com.levil.remoting.handler.QuitHandler;
-import com.levil.remoting.protocol.*;
+import com.levil.remoting.protocol.MessageCodecSharable;
+import com.levil.remoting.protocol.ProcotolFrameDecoder;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-
-
 import io.netty.util.concurrent.GenericFutureListener;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +31,13 @@ public class NettyServer implements RemotingServer {
     @Autowired
     private ServerList serverList;
 
+    @Autowired
+    private ServerManage serverManage;
+
     private  NioEventLoopGroup boss;
 
     private  NioEventLoopGroup worker;
+
 
     @Override
     public void start(CallBack callBack) {
@@ -64,7 +71,11 @@ public class NettyServer implements RemotingServer {
             sync.addListener((GenericFutureListener<ChannelFuture>) future -> {
                 log.info("Netty init over,result:{}", future.isSuccess());
                 callBack.setState(future.isSuccess());
-                //TODO:启动之后保存服务器状态
+                if (future.isSuccess()){
+                    BrokerServerMember self = serverManage.getSelf();
+                    self.setNodeState(NodeState.UP);
+                    serverManage.registerSelf(self);
+                }
             });
             sync.channel().closeFuture().sync();
         } catch (InterruptedException e) {
