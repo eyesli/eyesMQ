@@ -1,12 +1,9 @@
 package com.levil.remoting.netty;
 
-
 import com.levil.core.broker.BrokerServerMember;
 import com.levil.core.broker.DefaultIdGenerator;
 import com.levil.core.broker.Manager.ServerManage;
 import com.levil.core.broker.NodeState;
-import com.levil.remoting.RemotingClient;
-import com.levil.remoting.common.ActionType;
 import com.levil.remoting.handler.ResponseMessageHandler;
 import com.levil.remoting.message.PingMessage;
 import com.levil.remoting.protocol.MessageCodecSharable;
@@ -31,13 +28,20 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Component
-public class NettyClient implements RemotingClient {
-
-
+public class NettyClientManager {
     @Autowired
     private ServerManage serverManage;
-    @Override
-    public void start(String ip, int port, Boolean heart, ActionType actionType) {
+
+    private  Channel channel = null;
+    private  final Object LOCK = new Object();
+
+    // 获取唯一的 channel 对象
+    public Channel getChannel(String ip, int port, Boolean heart) {
+            initChannel(ip, port, heart);
+            return this.channel;
+    }
+    private void initChannel(String ip, int port, Boolean heart) {
+
         NioEventLoopGroup group = new NioEventLoopGroup();
         LoggingHandler LOGGING_HANDLER = new LoggingHandler(LogLevel.DEBUG);
         MessageCodecSharable MESSAGE_CODEC = new MessageCodecSharable();
@@ -95,12 +99,12 @@ public class NettyClient implements RemotingClient {
                     log.info("连接成功: localAddress => {} remoteAddress => {}", f.channel().localAddress(), f.channel().remoteAddress());
                 }
             });
-            Channel channel = connect.sync().channel();
-            channel.closeFuture().sync();
+             channel = connect.sync().channel();
+             channel.closeFuture().addListener(future -> {
+                 group.shutdownGracefully();});
         } catch (Exception e) {
             log.error("client error", e);
-        } finally {
-            group.shutdownGracefully();
         }
     }
+
 }

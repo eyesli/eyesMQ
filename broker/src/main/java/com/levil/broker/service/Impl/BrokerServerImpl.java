@@ -3,7 +3,7 @@ package com.levil.broker.service.Impl;
 import com.levil.broker.service.BrokerServer;
 import com.levil.core.broker.BrokerServerMember;
 import com.levil.core.broker.Manager.ServerManage;
-import com.levil.remoting.handler.ClientManager;
+import com.levil.remoting.netty.NettyClientManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import java.util.List;
 public class BrokerServerImpl implements BrokerServer {
 
     @Autowired
-    ClientManager clientManager;
+    NettyClientManager nettyClientManager;
     @Autowired
     private ServerManage serverManage;
 
@@ -43,7 +43,7 @@ public class BrokerServerImpl implements BrokerServer {
     public void report() {
         List<BrokerServerMember> serverList = this.serverManage.getAllServerMemberList();
         for (BrokerServerMember sm : serverList) {
-            new Thread(() -> clientManager.getChannel(sm.getIp(),sm.getPort(),true)).start();
+            new Thread(() -> nettyClientManager.getChannel(sm.getIp(),sm.getPort(),true)).start();
         }
     }
 }
