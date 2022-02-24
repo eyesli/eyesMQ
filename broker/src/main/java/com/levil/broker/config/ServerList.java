@@ -50,7 +50,5 @@ public class ServerList {
         String id = new DefaultIdGenerator(ip, this.nettyPort).generateId();
         this.self=new BrokerServerMember(id,ip,this.nettyPort,NodeState.DOWN);
         System.out.println("PostConstruct = " + this);
-
     }
-
 }

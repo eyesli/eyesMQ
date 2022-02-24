@@ -25,17 +25,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class NettyServer implements RemotingServer {
 
-
     @Autowired
     private ServerList serverList;
 
     private  NioEventLoopGroup boss;
 
     private  NioEventLoopGroup worker;
-    private  Boolean aBoolean=false;
 
     @Override
-    public void start() {
+    public void start(CallBack callBack) {
 
         boss = new NioEventLoopGroup();
         worker = new NioEventLoopGroup();
@@ -62,19 +60,18 @@ public class NettyServer implements RemotingServer {
                     ch.pipeline().addLast(QUIT_HANDLER);
                 }
             });
-//            Channel channel = serverBootstrap.bind(this.serverList.getNettyPort()).sync().channel();
             ChannelFuture sync = serverBootstrap.bind(this.serverList.getNettyPort()).sync();
-            sync.addListener(new GenericFutureListener<ChannelFuture>() {
-                @Override
-                public void operationComplete(ChannelFuture future) throws Exception {
-                    log.info("Netty init over,result:{}", future.isSuccess());
-                    aBoolean=future.isSuccess();
-                }
+            sync.addListener((GenericFutureListener<ChannelFuture>) future -> {
+                log.info("Netty init over,result:{}", future.isSuccess());
+                callBack.setState(future.isSuccess());
+                //TODO:启动之后保存服务器状态
             });
             sync.channel().closeFuture().sync();
         } catch (InterruptedException e) {
+            callBack.setState(false);
             log.error("server error", e);
         } finally {
+            callBack.setState(false);
             boss.shutdownGracefully();
             worker.shutdownGracefully();
         }

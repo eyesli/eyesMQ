@@ -18,6 +18,7 @@ import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.util.concurrent.GenericFutureListener;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -36,11 +37,13 @@ public class NettyClient implements RemotingClient {
         LoggingHandler LOGGING_HANDLER = new LoggingHandler(LogLevel.DEBUG);
         MessageCodecSharable MESSAGE_CODEC = new MessageCodecSharable();
         CountDownLatch WAIT_FOR_LOGIN = new CountDownLatch(1);
+
         AtomicBoolean LOGIN = new AtomicBoolean(false);
         AtomicBoolean EXIT = new AtomicBoolean(false);
         Scanner scanner = new Scanner(System.in);
         try {
             Bootstrap bootstrap = new Bootstrap();
+            bootstrap.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 3000);
             bootstrap.channel(NioSocketChannel.class);
             bootstrap.group(group);
             bootstrap.handler(new ChannelInitializer<SocketChannel>() {
@@ -154,7 +157,15 @@ public class NettyClient implements RemotingClient {
                     });
                 }
             });
-            Channel channel = bootstrap.connect(ip, port).sync().channel();
+            ChannelFuture connect = bootstrap.connect(ip, port);
+            connect.addListener((GenericFutureListener<ChannelFuture>) f -> {
+                if (!f.isSuccess()) {
+                    log.info("连接失败!在10s之后准备尝试重连! doConnect => {}:{}", ip, port);
+                } else {
+                    log.info("连接成功: localAddress => {} remoteAddress => {}", f.channel().localAddress(), f.channel().remoteAddress());
+                }
+            });
+            Channel channel = connect.sync().channel();
             channel.closeFuture().sync();
         } catch (Exception e) {
             log.error("client error", e);

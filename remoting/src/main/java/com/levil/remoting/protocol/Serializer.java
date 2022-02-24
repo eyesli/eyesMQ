@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * 用于扩展序列化、反序列化算法
  */
+@SuppressWarnings("unchecked")
 public interface Serializer {
 
     // 反序列化方法
