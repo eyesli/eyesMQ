@@ -24,28 +24,18 @@ public abstract class Message implements Serializable {
 
     public abstract int getMessageType();
 
-    public static final int LoginRequestMessage = 0;
-    public static final int LoginResponseMessage = 1;
+    public static final int requestMessage = 0;
+    public static final int responseMessage = 1;
 
     public static final int PingMessage = 14;
     public static final int PongMessage = 15;
-    /**
-     * 请求类型 byte 值
-     */
-    public static final int RPC_MESSAGE_TYPE_REQUEST = 101;
-    /**
-     * 响应类型 byte 值
-     */
-    public static final int  RPC_MESSAGE_TYPE_RESPONSE = 102;
 
     private static final Map<Integer, Class<? extends Message>> messageClasses = new HashMap<>();
 
     static {
-        messageClasses.put(LoginRequestMessage, RequestMessage.class);
-        messageClasses.put(LoginResponseMessage, ResponseMessage.class);
+        messageClasses.put(requestMessage, RequestMessage.class);
+        messageClasses.put(responseMessage, ResponseMessage.class);
         messageClasses.put(PingMessage, PingMessage.class);
-        messageClasses.put(RPC_MESSAGE_TYPE_REQUEST, RpcRequestMessage.class);
-        messageClasses.put(RPC_MESSAGE_TYPE_RESPONSE, RpcResponseMessage.class);
     }
 
 }
