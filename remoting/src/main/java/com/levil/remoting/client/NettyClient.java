@@ -6,9 +6,8 @@ import com.levil.core.broker.DefaultIdGenerator;
 import com.levil.core.broker.Manager.ServerManage;
 import com.levil.core.broker.NodeState;
 import com.levil.remoting.RemotingClient;
-import com.levil.remoting.message.ChatRequestMessage;
-import com.levil.remoting.message.LoginRequestMessage;
-import com.levil.remoting.message.LoginResponseMessage;
+import com.levil.remoting.common.ActionType;
+import com.levil.remoting.message.ResponseMessage;
 import com.levil.remoting.message.PingMessage;
 import com.levil.remoting.protocol.MessageCodecSharable;
 import com.levil.remoting.protocol.ProcotolFrameDecoder;
@@ -28,10 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
-import java.util.Scanner;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 @Component
@@ -41,15 +37,11 @@ public class NettyClient implements RemotingClient {
     @Autowired
     private ServerManage serverManage;
     @Override
-    public void start(String ip, int port, Boolean heart) {
+    public void start(String ip, int port, Boolean heart, ActionType actionType) {
         NioEventLoopGroup group = new NioEventLoopGroup();
         LoggingHandler LOGGING_HANDLER = new LoggingHandler(LogLevel.DEBUG);
         MessageCodecSharable MESSAGE_CODEC = new MessageCodecSharable();
-        CountDownLatch WAIT_FOR_LOGIN = new CountDownLatch(1);
 
-        AtomicBoolean LOGIN = new AtomicBoolean(false);
-        AtomicBoolean EXIT = new AtomicBoolean(false);
-        Scanner scanner = new Scanner(System.in);
         try {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000);
@@ -90,87 +82,38 @@ public class NettyClient implements RemotingClient {
                         @Override
                         public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
                             log.debug("msg: {}", msg);
-                            if ((msg instanceof LoginResponseMessage)) {
-                                LoginResponseMessage response = (LoginResponseMessage) msg;
+                            if ((msg instanceof ResponseMessage)) {
+                                ResponseMessage response = (ResponseMessage) msg;
                                 if (response.isSuccess()) {
                                     // 如果登录成功
-                                    LOGIN.set(true);
                                 }
-                                // 唤醒 system in 线程
-                                WAIT_FOR_LOGIN.countDown();
                             }
                         }
 
                         // 在连接建立后触发 active 事件
                         @Override
-                        public void channelActive(ChannelHandlerContext ctx) throws Exception {
-                            // 负责接收用户在控制台的输入，负责向服务器发送各种消息
-                            new Thread(() -> {
-                                System.out.println("请输入用户名:");
-                                String username = scanner.nextLine();
-                                if (EXIT.get()) {
-                                    return;
-                                }
-                                System.out.println("请输入密码:");
-                                String password = scanner.nextLine();
-                                if (EXIT.get()) {
-                                    return;
-                                }
-                                // 构造消息对象
-                                LoginRequestMessage message = new LoginRequestMessage(username, password);
-                                System.out.println(message);
-                                // 发送消息
-                                ctx.writeAndFlush(message);
-                                System.out.println("等待后续操作...");
-                                try {
-                                    WAIT_FOR_LOGIN.await();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                                // 如果登录失败
-                                if (!LOGIN.get()) {
-                                    ctx.channel().close();
-                                    return;
-                                }
-                                while (true) {
-                                    System.out.println("==================================");
-                                    System.out.println("send [username] [content]");
-                                    System.out.println("==================================");
-                                    String command = null;
-                                    try {
-                                        command = scanner.nextLine();
-                                    } catch (Exception e) {
-                                        break;
-                                    }
-                                    if (EXIT.get()) {
-                                        return;
-                                    }
-                                    String[] s = command.split(" ");
-                                    switch (s[0]) {
-                                        case "send":
-                                            ctx.writeAndFlush(new ChatRequestMessage(username, s[1], s[2]));
-                                            break;
+                        public void channelActive(ChannelHandlerContext ctx) {
+//                                    String[] s = command.split(" ");
+//                                    switch (s[0]) {
+//                                        case "send":
+//                                            ctx.writeAndFlush(null);
+//                                            break;
+//                                        case "quit":
+//                                            ctx.channel().close();
+//                                    }
 
-                                        case "quit":
-                                            ctx.channel().close();
-                                            return;
-                                    }
-                                }
-                            }, "system in").start();
                         }
 
                         // 在连接断开时触发
                         @Override
                         public void channelInactive(ChannelHandlerContext ctx) throws Exception {
                             log.debug("连接已经断开，按任意键退出..");
-                            EXIT.set(true);
                         }
 
                         // 在出现异常时触发
                         @Override
                         public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
                             log.debug("XXX连接已经断开，按任意键退出..{}", cause.getMessage());
-                            EXIT.set(true);
                         }
                     });
                 }

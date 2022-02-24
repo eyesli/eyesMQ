@@ -41,7 +41,7 @@ public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, Message
     }
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
         int magicNum = in.readInt();
         byte version = in.readByte();
         byte serializerAlgorithm = in.readByte(); // 0 或 1
@@ -57,8 +57,6 @@ public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, Message
         // 确定具体消息类型
         Class<? extends Message> messageClass = Message.getMessageClass(messageType);
         Message message = algorithm.deserialize(messageClass, bytes);
-//        log.debug("{}, {}, {}, {}, {}, {}", magicNum, version, serializerType, messageType, sequenceId, length);
-//        log.debug("{}", message);
         out.add(message);
     }
 

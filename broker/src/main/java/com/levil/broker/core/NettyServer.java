@@ -1,4 +1,4 @@
-package com.levil.broker.naming;
+package com.levil.broker.core;
 
 
 import com.levil.broker.config.ServerList;
@@ -7,7 +7,7 @@ import com.levil.core.broker.Manager.ServerManage;
 import com.levil.core.broker.NodeState;
 import com.levil.remoting.RemotingServer;
 import com.levil.remoting.handler.HeartbeatHandler;
-import com.levil.remoting.handler.LoginRequestMessageHandler;
+import com.levil.remoting.handler.RequestMessageHandler;
 import com.levil.remoting.handler.QuitHandler;
 import com.levil.remoting.protocol.MessageCodecSharable;
 import com.levil.remoting.protocol.ProcotolFrameDecoder;
@@ -46,7 +46,7 @@ public class NettyServer implements RemotingServer {
         worker = new NioEventLoopGroup();
         LoggingHandler LOGGING_HANDLER = new LoggingHandler(LogLevel.DEBUG);
         MessageCodecSharable MESSAGE_CODEC = new MessageCodecSharable();
-        LoginRequestMessageHandler LOGIN_HANDLER = new LoginRequestMessageHandler();
+        RequestMessageHandler LOGIN_HANDLER = new RequestMessageHandler();
         QuitHandler QUIT_HANDLER = new QuitHandler();
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();

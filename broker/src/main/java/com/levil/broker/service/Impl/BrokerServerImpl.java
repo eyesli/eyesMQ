@@ -46,7 +46,7 @@ public class BrokerServerImpl implements BrokerServer {
     public void report() {
         List<BrokerServerMember> serverList = this.serverManage.getAllServerMemberList();
         for (BrokerServerMember sm : serverList) {
-            new Thread(() -> client.start(sm.getIp(),sm.getPort(),true)).start();
+            new Thread(() -> client.start(sm.getIp(),sm.getPort(),true,null)).start();
         }
     }
 }

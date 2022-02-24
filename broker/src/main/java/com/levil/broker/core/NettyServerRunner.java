@@ -1,7 +1,6 @@
 package com.levil.broker.core;
 
 
-import com.levil.broker.naming.NettyServer;
 import com.levil.broker.service.BrokerServer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +25,7 @@ public class NettyServerRunner implements  CommandLineRunner{
          server.start(state -> {
              if (state){
                  //Server之间的心跳检测
+                 //再某个行为做完之后，在做心跳检测，或者定时任务去做心跳检测
                  brokerServer.report();
              }
          });
