@@ -94,14 +94,16 @@ public class NettyClientManager {
                     String generateId = new DefaultIdGenerator(ip, port).generateId();
                     Map<String, BrokerServerMember> allServerMemberMap = serverManage.getAllServerMemberMap();
                     BrokerServerMember brokerServerMember = allServerMemberMap.get(generateId);
-                    brokerServerMember.setNodeState(NodeState.UP);
-                    serverManage.update(brokerServerMember);
-                    log.info("连接成功: localAddress => {} remoteAddress => {}", f.channel().localAddress(), f.channel().remoteAddress());
-                }
+                    if (brokerServerMember != null) {
+                        brokerServerMember.setNodeState(NodeState.UP);
+                        serverManage.update(brokerServerMember);
+                        log.info("连接成功: localAddress => {} remoteAddress => {}", f.channel().localAddress(), f.channel().remoteAddress());
+                    }
+                    log.error("没有配置的服务器generateId=>{},服务器列表=>{}",generateId,allServerMemberMap);
+             }
             });
              channel = connect.sync().channel();
-             channel.closeFuture().addListener(future -> {
-                 group.shutdownGracefully();});
+             channel.closeFuture().addListener(future -> group.shutdownGracefully());
         } catch (Exception e) {
             log.error("client error", e);
         }

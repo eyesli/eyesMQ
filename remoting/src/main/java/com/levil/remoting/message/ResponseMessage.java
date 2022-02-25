@@ -14,8 +14,9 @@ public class ResponseMessage extends AbstractResponseMessage {
 
     private Integer type;
 
-    public ResponseMessage(boolean success, String reason) {
+    public ResponseMessage(boolean success, String reason,Integer type) {
         super(success, reason);
+        this.type=type;
     }
 
     @Override

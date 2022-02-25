@@ -11,9 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 public class ResponseMessageHandler extends SimpleChannelInboundHandler<ResponseMessage> {
 
     @Override
-
-    protected void channelRead0(ChannelHandlerContext ctx, ResponseMessage msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, ResponseMessage msg) {
         log.debug("{}", msg);
-
+        Integer type = msg.getType();
+        System.out.println("ctype = " + msg);
     }
 }
