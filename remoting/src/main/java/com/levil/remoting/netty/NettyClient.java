@@ -4,6 +4,7 @@ import com.levil.core.broker.BrokerServerMember;
 import com.levil.core.broker.DefaultIdGenerator;
 import com.levil.core.broker.Manager.ServerManage;
 import com.levil.core.broker.NodeState;
+import com.levil.remoting.RemotingClient;
 import com.levil.remoting.handler.ResponseMessageHandler;
 import com.levil.remoting.message.PingMessage;
 import com.levil.remoting.protocol.MessageCodecSharable;
@@ -28,17 +29,26 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Component
-public class NettyClient {
+public class NettyClient implements RemotingClient {
     @Autowired
     private ServerManage serverManage;
 
+    //todo 有没有线程安全问题 考虑管理一下Channel
     private  Channel channel = null;
+//    private Map<String,Channel> channelMap =  new ConcurrentHashMap<>();
+//    private Map<String,Channel> heartChannelMap =  new ConcurrentHashMap<>();
 
-    // 获取唯一的 channel 对象
+    @Override
     public Channel getChannel(String ip, int port, Boolean heart) {
-            initChannel(ip, port, heart);
+            this.initChannel(ip, port, heart);
             return this.channel;
     }
+
+    @Override
+    public void heartBeat(String ip, Integer port) {
+        this.getChannel(ip,port,true);
+    }
+
     private void initChannel(String ip, int port, Boolean heart) {
 
         NioEventLoopGroup group = new NioEventLoopGroup();
@@ -72,8 +82,10 @@ public class NettyClient {
                             if (event.state() == IdleState.WRITER_IDLE) {
                                 if (count >= 5 && heart) {
                                     log.info("心跳通过，关闭心跳");
+                                    //记录日志
                                     group.shutdownGracefully();
                                 } else {
+                                    //记录日志
                                     log.info("5s 没有写数据了，发送一个心跳包");
                                     ctx.writeAndFlush(new PingMessage());
                                 }
@@ -108,5 +120,6 @@ public class NettyClient {
             log.error("client error", e);
         }
     }
+
 
 }

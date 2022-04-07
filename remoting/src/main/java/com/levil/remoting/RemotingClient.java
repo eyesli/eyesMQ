@@ -1,7 +1,9 @@
 package com.levil.remoting;
 
-import com.levil.remoting.common.ActionType;
+import io.netty.channel.Channel;
 
 public interface RemotingClient{
-    void start(String ip , int port, Boolean heart, ActionType actionType);
+    Channel getChannel(String ip, int port, Boolean heart);
+
+    void heartBeat(String ip, Integer port);
 }

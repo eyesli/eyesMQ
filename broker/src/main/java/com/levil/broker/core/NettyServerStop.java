@@ -1,6 +1,6 @@
 package com.levil.broker.core;
 
-import com.levil.remoting.netty.NettyServer;
+import com.levil.remoting.RemotingServer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -17,29 +17,29 @@ import org.springframework.stereotype.Component;
 public class NettyServerStop implements ApplicationListener {
 
     @Autowired
-    private NettyServer server;
+    private RemotingServer remotingServer;
 
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
-        log.info("+++++++++++++++++++++++++++++++++++++++++++++");
+        log.info("springboot 事件分发布");
         if (event instanceof ContextStartedEvent){
-            log.info("================:{}", "ContextStartedEvent");
+            log.info("springboot发布事件ContextStartedEvent:{}", event);
         }
         if (event instanceof ContextRefreshedEvent){
-            log.info("================:{}", "ContextRefreshedEvent");
+            log.info("springboot发布事件ContextRefreshedEvent:{}", event);
         }
         if (event instanceof ContextClosedEvent){
-            server.shutDown();
-            log.info("================:{}", "ContextClosedEvent");
+            remotingServer.shutDown();
+            log.info("springboot发布事件ContextClosedEvent:{}", event);
         }
         if (event instanceof ContextStoppedEvent){
-            log.info("================:{}", "ContextStoppedEvent");
+            log.info("springboot发布事件ContextStoppedEvent:{}", event);
         }
         if (event instanceof WebServerInitializedEvent){
-            log.info("================:{}", "WebServerInitializedEvent");
+            log.info("springboot发布事件WebServerInitializedEvent:{}", event);
         }
         if (event instanceof ApplicationReadyEvent){
-            log.info("================:{}", "ApplicationReadyEvent");
+            log.info("springboot发布事件ApplicationReadyEvent:{}", event);
         }
         log.info(">>>>>>>>>>>>>>>>:{}\n", event.getClass().getName());
     }
