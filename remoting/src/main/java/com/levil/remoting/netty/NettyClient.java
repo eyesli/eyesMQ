@@ -28,12 +28,11 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Component
-public class NettyClientManager {
+public class NettyClient {
     @Autowired
     private ServerManage serverManage;
 
     private  Channel channel = null;
-    private  final Object LOCK = new Object();
 
     // 获取唯一的 channel 对象
     public Channel getChannel(String ip, int port, Boolean heart) {
@@ -89,6 +88,7 @@ public class NettyClientManager {
             connect.addListener((GenericFutureListener<ChannelFuture>) f -> {
                 if (!f.isSuccess()) {
                     Throwable cause = f.cause();
+                    group.shutdownGracefully();
                     log.info("连接失败!cause=>{}! doConnect => {}:{}", cause, ip, port);
                 } else {
                     String generateId = new DefaultIdGenerator(ip, port).generateId();

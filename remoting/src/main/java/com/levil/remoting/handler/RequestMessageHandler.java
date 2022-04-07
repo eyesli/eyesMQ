@@ -13,6 +13,6 @@ public class RequestMessageHandler extends SimpleChannelInboundHandler<RequestMe
     protected void channelRead0(ChannelHandlerContext ctx, RequestMessage msg) {
 
 
-        ctx.writeAndFlush(new ResponseMessage(true, "登录成功"));
+        ctx.writeAndFlush(new ResponseMessage(true, "登录成功",1));
     }
 }
