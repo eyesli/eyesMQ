@@ -23,7 +23,7 @@ public class NettyServerRunner implements  CommandLineRunner{
     //springboot启动的时候 netty 启动并且做心跳检测
     @Override
     public void run(String... args) {
-        remotingServer.start(state -> {
+        this.remotingServer.start(state -> {
              if (state){
                  brokerServer.report();
              }
