@@ -28,7 +28,7 @@
         <module>client</module>
         <module>common</module>
         <module>remoting</module>
-<!--        <module>context</module>-->
+        <module>design</module>
 
 
     </modules>
