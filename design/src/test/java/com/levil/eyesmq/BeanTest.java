@@ -21,6 +21,5 @@ public class BeanTest {
             System.out.println("beanDefinitionName = " + beanDefinitionName);
         }
 
-
     }
 }
