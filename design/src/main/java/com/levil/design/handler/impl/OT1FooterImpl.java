@@ -25,6 +25,7 @@ public class OT1FooterImpl extends AbstractBuildHandler {
 
     @Override
     public Integer getHandlerType() {
+        // 这里考虑是不是 重写的是哪部分的。考虑通过type区分
         return HandlerType.CUSTOM_TOP.getType();
     }
 
