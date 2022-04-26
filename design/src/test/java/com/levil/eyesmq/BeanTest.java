@@ -1,6 +1,8 @@
 package com.levil.eyesmq;
 
 import com.levil.design.DesignApplication;
+import com.levil.design.pojo.Big;
+import com.levil.design.service.GenerateService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class BeanTest {
     @Autowired
     ApplicationContext applicationContext;
+    @Autowired
+    GenerateService generateService;
 
     @Test
     public void testAdd() {
@@ -21,5 +25,10 @@ public class BeanTest {
             System.out.println("beanDefinitionName = " + beanDefinitionName);
         }
 
+    }
+    @Test
+    public void GenerateService() {
+        Big big = new Big();
+        generateService.generate(big);
     }
 }
