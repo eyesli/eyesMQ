@@ -11,7 +11,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public  abstract class AbstractBuildHandler implements BuildHandler {
 
-
     private static final Map<Integer, AbstractBuildHandler> handlerMap = new ConcurrentHashMap<>();
     private static final Map<Integer, AbstractBuildHandler> OrderTypeMap = new ConcurrentHashMap<>();
 
@@ -23,9 +22,7 @@ public  abstract class AbstractBuildHandler implements BuildHandler {
     }
 
     @Override
-    public  void build(Big big){
-
-    }
+    public abstract void build(Big big);
 
     @Override
     public abstract Integer getOrderType();

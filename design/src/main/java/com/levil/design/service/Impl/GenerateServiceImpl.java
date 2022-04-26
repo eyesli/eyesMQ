@@ -9,6 +9,7 @@ public class GenerateServiceImpl implements GenerateService {
 
 
 
+
     @Override
     public void generate(Big big) {
 

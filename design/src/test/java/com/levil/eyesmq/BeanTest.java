@@ -32,10 +32,5 @@ public class BeanTest {
     @Test
     public void GenerateService() {
         generateService.generate(new Big());
-//        Map<Integer, AbstractBuildHandler> handlerMap = ot1Footer.getHandlerMap();
-//        for (Map.Entry<Integer, AbstractBuildHandler> entry : handlerMap.entrySet()) {
-//            System.out.println("getKey = " + entry.getKey());
-//            System.out.println("getValue = " + entry.getValue());
-//        }
     }
 }
