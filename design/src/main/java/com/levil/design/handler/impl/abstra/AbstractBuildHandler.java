@@ -7,8 +7,12 @@ import org.springframework.stereotype.Service;
 @Service
 public  abstract class AbstractBuildHandler implements BuildHandler {
 
+
+
     @Override
-    public abstract void build(Big big);
+    public  void build(Big big){
+        System.out.println("公共build= " + big);
+    }
 
     @Override
     public abstract Integer getType();
