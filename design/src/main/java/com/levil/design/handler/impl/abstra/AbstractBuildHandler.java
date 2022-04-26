@@ -13,11 +13,13 @@ public  abstract class AbstractBuildHandler implements BuildHandler {
 
 
     private static final Map<Integer, AbstractBuildHandler> handlerMap = new ConcurrentHashMap<>();
+    private static final Map<Integer, AbstractBuildHandler> OrderTypeMap = new ConcurrentHashMap<>();
 
     //我还想过给实现类起别名来管理,但是我觉得这种方式更优雅
     @PostConstruct
     public void init() {
         handlerMap.put(getHandlerType(), this);
+        OrderTypeMap.put(getOrderType(), this);
     }
 
     @Override

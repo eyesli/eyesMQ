@@ -1,16 +1,10 @@
 package com.levil.design.core.constants;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
-@AllArgsConstructor
-public enum OrderType {
-    ONE(1,"orderType1"),
-    TWO(2,"orderType2"),
-    THREE(3,"orderType3"),
-    FOUR(4,"orderType4");
+@Data
+public class OrderType {
 
-    private final Integer type;
-    private final String desc;
+    private  Integer type;
+    private  String desc;
 }
