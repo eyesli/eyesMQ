@@ -17,7 +17,8 @@ public class FooterCommon extends AbstractBuildHandler {
 
     @Override
     public Integer getOrderType() {
-        return null;
+        //0就是所有order
+        return 0;
     }
 
     @Override

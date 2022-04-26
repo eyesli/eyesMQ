@@ -16,7 +16,7 @@ public class TopCommon extends AbstractBuildHandler {
     @Override
     public Integer getOrderType() {
         //枚举
-        return null;
+        return 0;
     }
 
     @Override
