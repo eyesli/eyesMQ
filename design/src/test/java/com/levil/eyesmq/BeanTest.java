@@ -1,7 +1,8 @@
 package com.levil.eyesmq;
 
 import com.levil.design.DesignApplication;
-import com.levil.design.handler.BuildHandler;
+import com.levil.design.handler.impl.OT1FooterImpl;
+import com.levil.design.handler.impl.abstra.AbstractBuildHandler;
 import com.levil.design.pojo.Big;
 import com.levil.design.service.GenerateService;
 import org.junit.Test;
@@ -30,10 +31,14 @@ public class BeanTest {
 
     }
     @Autowired
-    Map<String, BuildHandler> buildHandlerMap;
+    OT1FooterImpl ot1Footer;
     @Test
     public void GenerateService() {
         generateService.generate(new Big());
-//        System.out.println("buildHandlerMap = " + buildHandlerMap);
+        Map<Integer, AbstractBuildHandler> handlerMap = ot1Footer.getHandlerMap();
+        for (Map.Entry<Integer, AbstractBuildHandler> entry : handlerMap.entrySet()) {
+            System.out.println("getKey = " + entry.getKey());
+            System.out.println("getValue = " + entry.getValue());
+        }
     }
 }

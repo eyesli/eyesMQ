@@ -1,10 +1,11 @@
 package com.levil.design.handler.impl;
 
+import com.levil.design.core.constants.HandlerType;
 import com.levil.design.handler.config.HandlerConfig;
 import com.levil.design.handler.impl.abstra.AbstractBuildHandler;
 import com.levil.design.handler.impl.common.FooterCommon;
 import com.levil.design.pojo.Big;
-import com.levil.design.pojo.OrderType;
+import com.levil.design.core.constants.OrderType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class OT1FooterImpl extends AbstractBuildHandler {
 
     @Override
     public Integer getHandlerType() {
-        return null;
+        return HandlerType.CUSTOM_TOP.getType();
     }
 
 }
