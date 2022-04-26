@@ -15,6 +15,8 @@ public  abstract class AbstractBuildHandler implements BuildHandler {
     }
 
     @Override
-    public abstract Integer getType();
+    public abstract Integer getOrderType();
+    @Override
+    public abstract Integer getHandlerType();
 
 }

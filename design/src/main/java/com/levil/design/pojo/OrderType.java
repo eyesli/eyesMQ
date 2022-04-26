@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Type {
+public enum OrderType {
     ONE(1,"orderType1"),
     TWO(2,"orderType2"),
     THREE(3,"orderType3"),

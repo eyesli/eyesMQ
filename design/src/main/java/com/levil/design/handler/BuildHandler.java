@@ -6,5 +6,8 @@ public interface BuildHandler {
 
     void build(Big big);
 
-    Integer getType();
+    Integer getHandlerType();
+
+    Integer getOrderType();
+
 }

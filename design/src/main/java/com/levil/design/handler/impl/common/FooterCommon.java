@@ -13,7 +13,12 @@ public class FooterCommon extends AbstractBuildHandler {
     }
 
     @Override
-    public Integer getType() {
+    public Integer getOrderType() {
+        return null;
+    }
+
+    @Override
+    public Integer getHandlerType() {
         return null;
     }
 }

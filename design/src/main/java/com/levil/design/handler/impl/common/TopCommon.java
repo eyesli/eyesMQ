@@ -13,8 +13,13 @@ public class TopCommon extends AbstractBuildHandler {
     }
 
     @Override
-    public Integer getType() {
+    public Integer getOrderType() {
         //枚举
+        return null;
+    }
+
+    @Override
+    public Integer getHandlerType() {
         return null;
     }
 }
