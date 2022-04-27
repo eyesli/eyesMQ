@@ -23,6 +23,6 @@ public class TopCommon extends AbstractBuildHandler {
 
     @Override
     public HandlerType getHandlerType() {
-        return new HandlerType(HandlerTypeEnum.DEFAULT_1,false,getOrderType(), processEnum.Brazil);
+        return new HandlerType(HandlerTypeEnum.DEFAULT_1,false,getOrderType(), processEnum.COMMON);
     }
 }

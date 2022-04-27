@@ -33,7 +33,7 @@ public enum HandlerTypeEnum implements Actuator {
            return this;
         }
     },
-    DEFAULT_4(4,"默认模块构建4") {
+    DEFAULT_4(4,"默认模块构建4，比如是address") {
         @Override
         public HandlerTypeEnum getHandlerTypeEnum() {
             return this;

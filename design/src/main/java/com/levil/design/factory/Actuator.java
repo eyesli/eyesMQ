@@ -21,12 +21,27 @@ public interface Actuator {
             handlerType.setProcess(processEnum.COMMON);
             handlerMap.get(handlerType).build(big);
         }else {
+            AbstractBuildHandler handler = handlerMap.get(c);
+            if (handler==null){
+                throw new RuntimeException("没有这个handler");
+            }
             //你重写的handler 和type 必须保持一致,不然你重写干什么
-            if (c.getHandlerTypeEnum()!=getHandlerTypeEnum()) {
+            if (c.getOrderType()!=handler.getOrderType()) {
                 throw new RuntimeException("HandlerType 不匹配");
             }
-            handlerMap.get(c).build(big);
+
+            handler.build(big);
         }
+    }
+    default void build(Big big){
+        // TODO 这个map考虑一下怎么管理 这样会不会有点丑陋
+        Map<HandlerType, AbstractBuildHandler> handlerMap = AbstractBuildHandler.handlerMap;
+        HandlerType handlerType = new HandlerType();
+        handlerType.setHandlerTypeEnum(getHandlerTypeEnum());
+        handlerType.setIsOverride(false);
+        handlerType.setOrderType(OrderTypeEnum.ZERO);
+        handlerType.setProcess(processEnum.COMMON);
+        handlerMap.get(handlerType).build(big);
     }
     HandlerTypeEnum getHandlerTypeEnum();
 }
