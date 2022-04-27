@@ -9,8 +9,4 @@ public interface BuildHandler {
 
     HandlerTypeEnum getHandlerType();
 
-//    OrderTypeEnum getOrderType();
-
-
-
 }

@@ -24,8 +24,6 @@ public  abstract class AbstractBuildHandler implements BuildHandler {
     @Override
     public abstract void build(Big big);
 
-//    @Override
-//    public abstract OrderTypeEnum getOrderType();
     @Override
     public abstract HandlerTypeEnum getHandlerType();
 
