@@ -6,14 +6,14 @@ import com.levil.design.pojo.Big;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TopCommon extends AbstractBuildHandler {
+public class TitleCommon extends AbstractBuildHandler {
     @Override
     public void build(Big big) {
-        System.out.println("TopCommonBuild " + big);
+        System.out.println("默认模块构建3" + big);
     }
 
     @Override
     public HandlerTypeEnum getHandlerType() {
-        return HandlerTypeEnum.DEFAULT_1;
+        return HandlerTypeEnum.DEFAULT_3;
     }
 }

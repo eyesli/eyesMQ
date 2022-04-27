@@ -13,11 +13,6 @@ public class FooterCommon extends AbstractBuildHandler {
     public void build(Big big) {
         System.out.println("big setFooterImpl= " + big);
     }
-//
-//    @Override
-//    public OrderTypeEnum getOrderType() {
-//        return OrderTypeEnum.ZERO;
-//    }
 
     @Override
     public HandlerTypeEnum getHandlerType() {

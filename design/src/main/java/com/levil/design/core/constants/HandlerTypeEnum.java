@@ -3,6 +3,7 @@ package com.levil.design.core.constants;
 import com.levil.design.factory.Actuator;
 import com.levil.design.handler.impl.abstra.AbstractBuildHandler;
 import com.levil.design.handler.impl.common.FooterCommon;
+import com.levil.design.handler.impl.common.TitleCommon;
 import com.levil.design.handler.impl.common.TopCommon;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,7 +33,7 @@ public enum HandlerTypeEnum implements Actuator {
         }
     },
 
-    DEFAULT_3(3,FooterCommon.class,"默认模块构建3，比如是title") {
+    DEFAULT_3(3, TitleCommon.class,"默认模块构建3，比如是title") {
         @Override
         public HandlerTypeEnum getHandlerTypeEnum() {
            return this;
