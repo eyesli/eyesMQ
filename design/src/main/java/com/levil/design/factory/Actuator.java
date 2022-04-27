@@ -10,9 +10,8 @@ import com.levil.design.pojo.Big;
 import java.util.Map;
 
 public interface Actuator {
-    default void defaultBuild(BuildHandler c, Big big){
-        // TODO 我难道每个都要写一个一样的方法，思路错了
-        // TODO 这个map考虑一下怎么管理
+    default void build(BuildHandler c, Big big){
+        // TODO 这个map考虑一下怎么管理 这样会不会有点丑陋
         Map<HandlerType, AbstractBuildHandler> handlerMap = AbstractBuildHandler.handlerMap;
         if (c == null){
             HandlerType handlerType = new HandlerType();
