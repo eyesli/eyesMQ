@@ -27,10 +27,7 @@ public class OT1FooterImpl extends AbstractBuildHandler {
     public HandlerType getHandlerType() {
         /**
          *  TODO 这里考虑是不是 重写的是哪部分的。考虑通过type区分,不然只有开发者自己知道是build的是什么。
-         *  TODO 这里考虑怎么设计，重写还是增强，要考虑到父类的map 冲突问题
-         *  TODO 其实只需要判断一下是不是当前类，就知道是不是被重写了
          */
-
         return new HandlerType(HandlerTypeEnum.DEFAULT_1,true,getOrderType(), processEnum.Brazil);
     }
 
