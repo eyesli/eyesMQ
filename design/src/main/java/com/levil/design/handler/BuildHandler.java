@@ -1,16 +1,15 @@
 package com.levil.design.handler;
 
-import com.levil.design.core.constants.HandlerType;
-import com.levil.design.core.constants.OrderTypeEnum;
+import com.levil.design.core.constants.HandlerTypeEnum;
 import com.levil.design.pojo.Big;
 
 public interface BuildHandler {
 
     void build(Big big);
 
-    HandlerType getHandlerType();
+    HandlerTypeEnum getHandlerType();
 
-    OrderTypeEnum getOrderType();
+//    OrderTypeEnum getOrderType();
 
 
 

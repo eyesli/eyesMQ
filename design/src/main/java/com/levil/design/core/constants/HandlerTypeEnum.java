@@ -1,6 +1,9 @@
 package com.levil.design.core.constants;
 
 import com.levil.design.factory.Actuator;
+import com.levil.design.handler.impl.abstra.AbstractBuildHandler;
+import com.levil.design.handler.impl.common.FooterCommon;
+import com.levil.design.handler.impl.common.TopCommon;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -15,36 +18,38 @@ public enum HandlerTypeEnum implements Actuator {
     /**
      *     假设一个默认的公共的构建有这些流程 要build这么多东西，实际可能更多一点
      */
-    DEFAULT_1(1,"默认模块构建1,比如是top"){
+    DEFAULT_1(1, TopCommon.class,"默认模块构建1,比如是top"){
         @Override
         public HandlerTypeEnum getHandlerTypeEnum() {
             return this;
         }
     },
-    DEFAULT_2(2,"默认模块构建2,比如是footer") {
+
+    DEFAULT_2(2, FooterCommon.class,"默认模块构建2,比如是footer") {
         @Override
         public HandlerTypeEnum getHandlerTypeEnum() {
             return this;
         }
     },
-    DEFAULT_3(3,"默认模块构建3，比如是title") {
+
+    DEFAULT_3(3,FooterCommon.class,"默认模块构建3，比如是title") {
         @Override
         public HandlerTypeEnum getHandlerTypeEnum() {
            return this;
         }
     },
-    DEFAULT_4(4,"默认模块构建4，比如是address") {
+    DEFAULT_4(4,FooterCommon.class,"默认模块构建4，比如是address") {
         @Override
         public HandlerTypeEnum getHandlerTypeEnum() {
             return this;
         }
     },
-//    DEFAULT_5(5,"默认模块构建5") {
-//        @Override
-//        public void defaultBuild(BuildHandler buildHandler, Big big) {
-//
-//        }
-//    },
+    DEFAULT_5(5,FooterCommon.class,"默认模块构建5") {
+        @Override
+        public HandlerTypeEnum getHandlerTypeEnum() {
+            return this;
+        }
+    },
 //    DEFAULT_6(6,"默认模块构建6") {
 //        @Override
 //        public void defaultBuild(BuildHandler buildHandler, Big big) {
@@ -105,13 +110,14 @@ public enum HandlerTypeEnum implements Actuator {
 //
 //        }
 //    },
-    DEFAULT_16(16,"默认模块构建16") {
+    DEFAULT_16(16,FooterCommon.class,"默认模块构建16") {
         @Override
         public HandlerTypeEnum getHandlerTypeEnum() {
             return this;
         }
     };
     private final Integer type;
+    private final Class<? extends AbstractBuildHandler> aClass;
     private final String desc;
 
 
