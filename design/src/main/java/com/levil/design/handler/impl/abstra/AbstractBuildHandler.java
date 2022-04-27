@@ -1,9 +1,8 @@
 package com.levil.design.handler.impl.abstra;
 
+import com.levil.design.core.constants.HandlerType;
 import com.levil.design.handler.BuildHandler;
-import com.levil.design.handler.impl.common.CommonBuildService;
 import com.levil.design.pojo.Big;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -13,17 +12,15 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public  abstract class AbstractBuildHandler implements BuildHandler {
 
-    private static final Map<Integer, AbstractBuildHandler> handlerMap = new ConcurrentHashMap<>();
-    private static final Map<Integer, AbstractBuildHandler> OrderTypeMap = new ConcurrentHashMap<>();
+    public static final Map<HandlerType, AbstractBuildHandler> handlerMap = new ConcurrentHashMap<>();
 
-    @Autowired
-    CommonBuildService commonBuildService;
+//    @Autowired
+//    CommonBuildService commonBuildService;
 
     //我还想过给实现类起别名来管理,但是我觉得这种方式更优雅
     @PostConstruct
     public void init() {
-        handlerMap.put(getHandlerType(), this);
-        OrderTypeMap.put(getOrderType(), this);
+        handlerMap.put(getHandlerType(),this);
     }
 
 //    //=================这里可能有很多看你拆得多细
@@ -47,7 +44,7 @@ public  abstract class AbstractBuildHandler implements BuildHandler {
     @Override
     public abstract Integer getOrderType();
     @Override
-    public abstract Integer getHandlerType();
+    public abstract HandlerType getHandlerType();
 
 
 }

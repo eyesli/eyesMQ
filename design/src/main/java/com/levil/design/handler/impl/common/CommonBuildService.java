@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CommonBuildService {
-    public void build(){
-
+    public void build(String s){
+        System.out.println("s = " + s);
     }
 }

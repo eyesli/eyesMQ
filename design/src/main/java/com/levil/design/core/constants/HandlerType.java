@@ -1,17 +1,21 @@
 package com.levil.design.core.constants;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
+@Data
 @AllArgsConstructor
-public enum HandlerType {
+@NoArgsConstructor
+public class HandlerType {
 
-    DEFAULT_TOP(1,"TOP"),
-    DEFAULT_FOOTER(2,"FOOTER"),
-    CUSTOM_TOP(3,"自定义TOP"),
-    CUSTOM_FOOTER(4,"自定义FOOTER");
+    //handler类型
+    private HandlerTypeEnum handlerTypeEnum;
+    //是否是方法重写
+    private Boolean isOverride;
+    //orderType
+    private Integer orderType;
+    //在哪个流程 巴西，美国，加拿大
+    private processEnum process;
 
-    private final Integer type;
-    private final String desc;
 }
