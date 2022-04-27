@@ -12,11 +12,6 @@ public class OT1AddressImpl extends AbstractBuildHandler {
         System.out.println("OT1重写Address " + big);
     }
 
-//    @Override
-//    public OrderTypeEnum getOrderType() {
-//        return OrderTypeEnum.ONE;
-//    }
-
     @Override
     public HandlerTypeEnum getHandlerType() {
         return HandlerTypeEnum.DEFAULT_16;
