@@ -1,6 +1,7 @@
 package com.levil.design.handler.impl.abstra;
 
 import com.levil.design.core.constants.HandlerType;
+import com.levil.design.core.constants.OrderTypeEnum;
 import com.levil.design.handler.BuildHandler;
 import com.levil.design.pojo.Big;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public  abstract class AbstractBuildHandler implements BuildHandler {
     public abstract void build(Big big);
 
     @Override
-    public abstract Integer getOrderType();
+    public abstract OrderTypeEnum getOrderType();
     @Override
     public abstract HandlerType getHandlerType();
 

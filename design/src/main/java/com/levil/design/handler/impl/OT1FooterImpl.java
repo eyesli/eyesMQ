@@ -19,8 +19,8 @@ public class OT1FooterImpl extends AbstractBuildHandler {
     }
 
     @Override
-    public Integer getOrderType() {
-        return OrderTypeEnum.ONE.getType();
+    public OrderTypeEnum getOrderType() {
+        return OrderTypeEnum.ONE;
     }
 
     @Override

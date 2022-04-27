@@ -1,7 +1,9 @@
 package com.levil.eyesmq;
 
 import com.levil.design.DesignApplication;
+import com.levil.design.core.constants.HandlerType;
 import com.levil.design.core.constants.HandlerTypeEnum;
+import com.levil.design.core.constants.OrderTypeEnum;
 import com.levil.design.handler.BuildHandler;
 import com.levil.design.handler.impl.OT1FooterImpl;
 import com.levil.design.pojo.Big;
@@ -39,7 +41,8 @@ public class BeanTest {
     OT1FooterImpl ot1Footer;
     @Test
     public void GenerateService() {
-        HandlerTypeEnum.DEFAULT_1.build(ot1Footer,new Big());
+//        HandlerTypeEnum.DEFAULT_1.build(ot1Footer,new Big());
+        HandlerTypeEnum.DEFAULT_4.build(new HandlerType(HandlerTypeEnum.DEFAULT_16,true, OrderTypeEnum.ONE,null),new Big());
 //        HandlerTypeEnum.DEFAULT_1.start();
     }
 }

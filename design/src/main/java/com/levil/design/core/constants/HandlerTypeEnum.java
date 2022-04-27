@@ -32,13 +32,13 @@ public enum HandlerTypeEnum implements Actuator {
         public HandlerTypeEnum getHandlerTypeEnum() {
            return this;
         }
-    };
-//    DEFAULT_4(4,"默认模块构建4") {
-//        @Override
-//        public void defaultBuild(BuildHandler buildHandler, Big big) {
-//
-//        }
-//    },
+    },
+    DEFAULT_4(4,"默认模块构建4") {
+        @Override
+        public HandlerTypeEnum getHandlerTypeEnum() {
+            return this;
+        }
+    },
 //    DEFAULT_5(5,"默认模块构建5") {
 //        @Override
 //        public void defaultBuild(BuildHandler buildHandler, Big big) {
@@ -105,12 +105,12 @@ public enum HandlerTypeEnum implements Actuator {
 //
 //        }
 //    },
-//    DEFAULT_16(16,"默认模块构建16") {
-//        @Override
-//        public void defaultBuild(AbstractBuildHandler abstractBuildHandler, Big big) {
-//
-//        }
-//    };
+    DEFAULT_16(16,"默认模块构建16") {
+        @Override
+        public HandlerTypeEnum getHandlerTypeEnum() {
+            return this;
+        }
+    };
     private final Integer type;
     private final String desc;
 

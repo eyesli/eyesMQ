@@ -1,6 +1,7 @@
 package com.levil.design.handler;
 
 import com.levil.design.core.constants.HandlerType;
+import com.levil.design.core.constants.OrderTypeEnum;
 import com.levil.design.pojo.Big;
 
 public interface BuildHandler {
@@ -9,7 +10,7 @@ public interface BuildHandler {
 
     HandlerType getHandlerType();
 
-    Integer getOrderType();
+    OrderTypeEnum getOrderType();
 
 
 

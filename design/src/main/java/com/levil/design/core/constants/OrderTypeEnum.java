@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 @Getter
 @AllArgsConstructor
 public enum OrderTypeEnum {
+    ZERO(0,"orderType0"),
     ONE(1,"orderType1"),
     TWO(2,"orderType2"),
     THREE(3,"orderType3"),

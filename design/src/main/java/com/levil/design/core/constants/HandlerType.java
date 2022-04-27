@@ -14,7 +14,7 @@ public class HandlerType {
     //是否是方法重写
     private Boolean isOverride;
     //orderType
-    private Integer orderType;
+    private OrderTypeEnum orderType;
     //在哪个流程 巴西，美国，加拿大
     private processEnum process;
 
