@@ -16,7 +16,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Service
 public  abstract class AbstractBuildHandler<T extends AbstractBuildBO> implements BuildHandler<T> {
  
-    public static final Map<HandlerTypeEnum, AbstractBuildHandler> handlerMap = new ConcurrentHashMap<>();
+    public static final Map<HandlerTypeEnum, Object> handlerMap = new ConcurrentHashMap<>();
 
     /**
      *  获取子类的所有泛型
@@ -27,8 +27,8 @@ public  abstract class AbstractBuildHandler<T extends AbstractBuildBO> implement
     @PostConstruct
     public void init() {
         //获取子类所有的泛型
-        getGenericSubclass(getClass());
         handlerMap.put(getHandlerType(),this);
+        getGenericSubclass(getClass());
     }
 
     private void getGenericSubclass(Class clazz) {
