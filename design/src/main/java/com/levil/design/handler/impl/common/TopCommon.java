@@ -6,7 +6,7 @@ import com.levil.design.pojo.Big;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TopCommon extends AbstractBuildHandler {
+public class TopCommon extends AbstractBuildHandler<Big> {
     @Override
     public void build(Big big) {
         System.out.println("TopCommonBuild " + big);

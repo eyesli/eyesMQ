@@ -6,7 +6,7 @@ import com.levil.design.pojo.Big;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OT1AddressImpl extends AbstractBuildHandler {
+public class OT1AddressImpl extends AbstractBuildHandler<Big> {
     @Override
     public void build(Big big) {
         System.out.println("OT1重写Address " + big);
