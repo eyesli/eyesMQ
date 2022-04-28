@@ -1,6 +1,5 @@
 package com.levil.design.core.constants;
 
-import com.levil.design.factory.Actuator;
 import com.levil.design.handler.impl.abstra.AbstractBuildHandler;
 import com.levil.design.handler.impl.common.FooterCommon;
 import com.levil.design.handler.impl.common.TitleCommon;
@@ -14,115 +13,32 @@ import java.util.stream.Stream;
 
 @Getter
 @AllArgsConstructor
-public enum HandlerTypeEnum implements Actuator {
+public enum HandlerTypeEnum {
 
     /**
-     *     假设一个默认的公共的构建有这些流程 要build这么多东西，实际可能更多一点
+     * 假设一个默认的公共的构建有这些流程 要build这么多东西，实际可能更多一点
      */
-    DEFAULT_1(1, TopCommon.class,"默认模块构建1,比如是top"){
-        @Override
-        public HandlerTypeEnum getHandlerTypeEnum() {
-            return this;
-        }
+    DEFAULT_1(1, TopCommon.class, HandlerGroupEnum.HEADER, "默认模块构建1,比如是top") {
     },
+    DEFAULT_2(2, FooterCommon.class, HandlerGroupEnum.HEADER, "默认模块构建2,比如是footer"),
 
-    DEFAULT_2(2, FooterCommon.class,"默认模块构建2,比如是footer") {
-        @Override
-        public HandlerTypeEnum getHandlerTypeEnum() {
-            return this;
-        }
-    },
-
-    DEFAULT_3(3, TitleCommon.class,"默认模块构建3，比如是title") {
-        @Override
-        public HandlerTypeEnum getHandlerTypeEnum() {
-           return this;
-        }
-    },
-    DEFAULT_4(4,FooterCommon.class,"默认模块构建4，比如是address") {
-        @Override
-        public HandlerTypeEnum getHandlerTypeEnum() {
-            return this;
-        }
-    },
-    DEFAULT_5(5,FooterCommon.class,"默认模块构建5") {
-        @Override
-        public HandlerTypeEnum getHandlerTypeEnum() {
-            return this;
-        }
-    },
-//    DEFAULT_6(6,"默认模块构建6") {
-//        @Override
-//        public void defaultBuild(BuildHandler buildHandler, Big big) {
-//
-//        }
-//    },
-//    DEFAULT_7(7,"默认模块构建7") {
-//        @Override
-//        public void defaultBuild(BuildHandler buildHandler, Big big) {
-//
-//        }
-//    },
-//    DEFAULT_8(8,"默认模块构建8") {
-//        @Override
-//        public void defaultBuild(BuildHandler buildHandler, Big big) {
-//
-//        }
-//    },
-//    DEFAULT_9(9,"默认模块构建9") {
-//        @Override
-//        public void defaultBuild(BuildHandler buildHandler, Big big) {
-//
-//        }
-//    },
-//    DEFAULT_10(10,"默认模块构建10") {
-//        @Override
-//        public void defaultBuild(BuildHandler buildHandler, Big big) {
-//
-//        }
-//    },
-//    DEFAULT_11(11,"默认模块构建11") {
-//        @Override
-//        public void defaultBuild(BuildHandler buildHandler, Big big) {
-//
-//        }
-//    },
-//    DEFAULT_12(12,"默认模块构建12") {
-//        @Override
-//        public void defaultBuild(BuildHandler buildHandler, Big big) {
-//
-//        }
-//    },
-//    DEFAULT_13(13,"默认模块构建13") {
-//        @Override
-//        public void defaultBuild(BuildHandler buildHandler, Big big) {
-//
-//        }
-//    },
-//    DEFAULT_14(14,"默认模块构建14") {
-//        @Override
-//        public void defaultBuild(BuildHandler buildHandler, Big big) {
-//
-//        }
-//    },
-//    DEFAULT_15(15,"默认模块构建15") {
-//        @Override
-//        public void defaultBuild(BuildHandler buildHandler, Big big) {
-//
-//        }
-//    },
-    DEFAULT_16(16,FooterCommon.class,"默认模块构建16") {
-        @Override
-        public HandlerTypeEnum getHandlerTypeEnum() {
-            return this;
-        }
-    };
+    DEFAULT_3(3, TitleCommon.class, HandlerGroupEnum.HEADER, "默认模块构建3，比如是title"),
+    DEFAULT_4(4, FooterCommon.class, HandlerGroupEnum.LOGO, "默认模块构建4，比如是address"),
+    DEFAULT_5(5, FooterCommon.class, HandlerGroupEnum.LOGO, "默认模块构建5"),
+    DEFAULT_6(6, FooterCommon.class, HandlerGroupEnum.LOGO, "默认模块构建5"),
+    DEFAULT_7(7, FooterCommon.class, HandlerGroupEnum.LOGO, "默认模块构建5"),
+    DEFAULT_8(8, FooterCommon.class, HandlerGroupEnum.LOGO, "默认模块构建5"),
+    DEFAULT_16(16, FooterCommon.class, HandlerGroupEnum.LOGO, "默认模块构建16");
+    //类型递增
     private final Integer type;
+    //枚举对应的类
     private final Class<? extends AbstractBuildHandler> aClass;
+    //枚举在哪个组，多个枚举构成一个组。就算是重写了，我也要知道你重写的是哪部分内容。方便管理
+    private final HandlerGroupEnum handlerGroupEnum;
+    //描述
     private final String desc;
 
-
-    public static List<Integer> getAllHandlerType(){
-       return Stream.of(HandlerTypeEnum.values()).map(HandlerTypeEnum::getType).collect(Collectors.toList());
+    public static List<Integer> getAllHandlerType() {
+        return Stream.of(HandlerTypeEnum.values()).map(HandlerTypeEnum::getType).collect(Collectors.toList());
     }
 }

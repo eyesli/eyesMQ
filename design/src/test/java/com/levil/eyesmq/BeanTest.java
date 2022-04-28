@@ -1,7 +1,7 @@
 package com.levil.eyesmq;
 
 import com.levil.design.DesignApplication;
-import com.levil.design.core.constants.HandlerTypeEnum;
+import com.levil.design.core.constants.HandlerGroupEnum;
 import com.levil.design.factory.Actuator;
 import com.levil.design.handler.BuildHandler;
 import com.levil.design.pojo.Big;
@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static com.levil.design.core.constants.HandlerGroupEnum.HEADER;
 import static com.levil.design.core.constants.HandlerTypeEnum.DEFAULT_1;
 import static com.levil.design.core.constants.HandlerTypeEnum.DEFAULT_2;
 import static com.levil.design.core.constants.HandlerTypeEnum.DEFAULT_3;
@@ -44,12 +45,9 @@ public class BeanTest {
     }
     @Test
     public void GenerateService() {
-
-
+        System.out.println("address = " + HandlerGroupEnum.getHandlerTypeEnumList(HEADER));
         List<Actuator<Big>> objects = Lists.newArrayList(() -> DEFAULT_1, () -> DEFAULT_2,() -> DEFAULT_3);
         objects.parallelStream().forEach(e->e.build(new Big()));
 
-        List<HandlerTypeEnum> handlerTypeEnums = Lists.newArrayList(DEFAULT_1, DEFAULT_2, DEFAULT_3);
-        handlerTypeEnums.parallelStream().forEach(e->e.build(new Big()));
     }
 }

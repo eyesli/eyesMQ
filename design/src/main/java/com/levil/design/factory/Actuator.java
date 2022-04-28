@@ -7,6 +7,7 @@ import com.levil.design.pojo.AbstractBuildBO;
 
 import java.util.Map;
 
+// 这个考虑不要做成接口
 public interface Actuator<T extends AbstractBuildBO> {
     @SuppressWarnings("unchecked")
     default void build(T obj){
