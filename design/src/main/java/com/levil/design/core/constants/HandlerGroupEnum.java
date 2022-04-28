@@ -1,9 +1,9 @@
 package com.levil.design.core.constants;
 
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static com.levil.design.core.constants.HandlerTypeEnum.DEFAULT_1;
@@ -32,15 +32,15 @@ public enum HandlerGroupEnum {
     public static List<HandlerTypeEnum> getHandlerTypeEnumList(HandlerGroupEnum groupEnum){
         switch (groupEnum){
             case HEADER:
-                return Arrays.asList(DEFAULT_1, DEFAULT_2);
+                return Lists.newArrayList(DEFAULT_1, DEFAULT_2);
             case LOGO:
-                return Arrays.asList(DEFAULT_3, DEFAULT_4);
+                return Lists.newArrayList(DEFAULT_3, DEFAULT_4);
             case BILL_TO:
-                return Arrays.asList(DEFAULT_5,DEFAULT_6);
+                return Lists.newArrayList(DEFAULT_5,DEFAULT_6);
             case REMIT_TO:
-                return Arrays.asList(DEFAULT_7,DEFAULT_8);
+                return Lists.newArrayList(DEFAULT_7,DEFAULT_8);
             case ADDRESS:
-                return Arrays.asList(DEFAULT_16);
+                return Lists.newArrayList(DEFAULT_16);
             default:
                 return null;
         }
