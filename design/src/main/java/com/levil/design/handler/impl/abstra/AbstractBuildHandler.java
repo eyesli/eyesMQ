@@ -2,6 +2,7 @@ package com.levil.design.handler.impl.abstra;
 
 import com.levil.design.core.constants.HandlerTypeEnum;
 import com.levil.design.handler.BuildHandler;
+import com.levil.design.pojo.AbstractBuildBO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -13,14 +14,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service
-public  abstract class AbstractBuildHandler<T> implements BuildHandler<T> {
-
+public  abstract class AbstractBuildHandler<T extends AbstractBuildBO> implements BuildHandler<T> {
+ 
     public static final Map<HandlerTypeEnum, AbstractBuildHandler> handlerMap = new ConcurrentHashMap<>();
 
     /**
      *  获取子类的所有泛型
      */
-    private final List<Class> genericSubclass = new CopyOnWriteArrayList<>();
+    private final List<Class<? extends AbstractBuildBO>> genericSubclass = new CopyOnWriteArrayList<>();
 
     //我还想过给实现类起别名来管理,但是我觉得这种方式更优雅
     @PostConstruct
@@ -41,6 +42,7 @@ public  abstract class AbstractBuildHandler<T> implements BuildHandler<T> {
             //存在多级继承
             getGenericSubclass((Class)(superclass));
         }
+        System.out.println("genericSubclass = " + genericSubclass);
     }
 
 
