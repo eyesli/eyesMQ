@@ -11,22 +11,17 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class BuildActuator<T extends AbstractBuildBO> {
 
-    private final Map<HandlerTypeEnum, Object> handlerMap = new ConcurrentHashMap<>();
+    private final Map<HandlerTypeEnum, BuildHandler<T>> handlerMap = new ConcurrentHashMap<>();
 
-    public void register(HandlerTypeEnum k,Object v){
+    public void register(HandlerTypeEnum k,BuildHandler<T> v){
         handlerMap.put(k,v);
     }
 
     public void build(T obj,HandlerTypeEnum handlerTypeEnum){
-        Object o = handlerMap.get(handlerTypeEnum);
-        if (o==null){
+        BuildHandler<T> handler = handlerMap.get(handlerTypeEnum);
+        if (handler==null){
             throw new RuntimeException("没有这个handler");
         }
-        //这里是判断抽象类 还是接口
-        if (o instanceof BuildHandler){
-            BuildHandler<T> handler = (BuildHandler<T>) o;
-            handler.build(obj);
-        }
-
+        handler.build(obj);
     }
 }
