@@ -1,12 +1,12 @@
 package com.levil.eyesmq;
 
+import com.google.common.collect.Lists;
 import com.levil.design.DesignApplication;
-import com.levil.design.core.constants.HandlerGroupEnum;
-import com.levil.design.factory.Actuator;
+import com.levil.design.core.constants.HandlerTypeEnum;
+import com.levil.design.factory.BuildActuator;
 import com.levil.design.handler.BuildHandler;
 import com.levil.design.pojo.Big;
 import com.levil.design.service.GenerateService;
-import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static com.levil.design.core.constants.HandlerGroupEnum.HEADER;
 import static com.levil.design.core.constants.HandlerTypeEnum.DEFAULT_1;
 import static com.levil.design.core.constants.HandlerTypeEnum.DEFAULT_2;
 import static com.levil.design.core.constants.HandlerTypeEnum.DEFAULT_3;
@@ -43,11 +42,11 @@ public class BeanTest {
             System.out.println("beanDefinitionName = " + beanDefinitionName);
         }
     }
+    @Autowired
+    BuildActuator<Big> buildActuator;
     @Test
     public void GenerateService() {
-        System.out.println("address = " + HandlerGroupEnum.getHandlerTypeEnumList(HEADER));
-        List<Actuator<Big>> objects = Lists.newArrayList(() -> DEFAULT_1, () -> DEFAULT_2,() -> DEFAULT_3);
-        objects.parallelStream().forEach(e->e.build(new Big()));
-
+        List<HandlerTypeEnum> objects = Lists.newArrayList( DEFAULT_1,DEFAULT_2, DEFAULT_3);
+        objects.parallelStream().forEach(e->buildActuator.build(new Big(),e));
     }
 }

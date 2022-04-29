@@ -1,22 +1,23 @@
 package com.levil.design.handler.impl.abstra;
 
 import com.levil.design.core.constants.HandlerTypeEnum;
+import com.levil.design.factory.BuildActuator;
 import com.levil.design.handler.BuildHandler;
 import com.levil.design.pojo.AbstractBuildBO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service
 public  abstract class AbstractBuildHandler<T extends AbstractBuildBO> implements BuildHandler<T> {
- 
-    public static final Map<HandlerTypeEnum, Object> handlerMap = new ConcurrentHashMap<>();
+
+    @Autowired
+    BuildActuator<T> buildActuator;
 
     /**
      *  获取子类的所有泛型
@@ -27,7 +28,7 @@ public  abstract class AbstractBuildHandler<T extends AbstractBuildBO> implement
     @PostConstruct
     public void init() {
         //获取子类所有的泛型
-        handlerMap.put(getHandlerType(),this);
+        buildActuator.register(getHandlerType(),this);
         getGenericSubclass(getClass());
     }
 
