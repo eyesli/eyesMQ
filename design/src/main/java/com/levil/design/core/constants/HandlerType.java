@@ -16,6 +16,6 @@ public class HandlerType {
     //orderType
     private OrderTypeEnum orderType;
     //在哪个流程 巴西，美国，加拿大
-    private processEnum process;
+    private ProcessEnum process;
 
 }

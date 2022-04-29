@@ -2,5 +2,5 @@ package com.levil.design.factory;
 
 public interface ProcessFactory<T> {
 
-    Actuator build(T obj);
+    BuildActuator build(T obj);
 }

@@ -1,11 +1,10 @@
 package com.levil.design.handler;
 
 import com.levil.design.core.constants.HandlerTypeEnum;
-import com.levil.design.pojo.Big;
 
-public interface BuildHandler {
+public interface BuildHandler<T> {
 
-    void build(Big big);
+    void build(T big);
 
     HandlerTypeEnum getHandlerType();
 

@@ -1,11 +1,12 @@
 package com.levil.eyesmq;
 
+import com.google.common.collect.Lists;
 import com.levil.design.DesignApplication;
 import com.levil.design.core.constants.HandlerTypeEnum;
+import com.levil.design.factory.BuildActuator;
 import com.levil.design.handler.BuildHandler;
 import com.levil.design.pojo.Big;
 import com.levil.design.service.GenerateService;
-import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +42,11 @@ public class BeanTest {
             System.out.println("beanDefinitionName = " + beanDefinitionName);
         }
     }
+    @Autowired
+    BuildActuator<Big> buildActuator;
     @Test
     public void GenerateService() {
-        List<HandlerTypeEnum> handlerTypeEnums = Lists.newArrayList(DEFAULT_1, DEFAULT_2, DEFAULT_3);
-        handlerTypeEnums.forEach(e->e.build(new Big()));
+        List<HandlerTypeEnum> objects = Lists.newArrayList( DEFAULT_1,DEFAULT_2, DEFAULT_3);
+        objects.parallelStream().forEach(e->buildActuator.build(new Big(),e));
     }
 }

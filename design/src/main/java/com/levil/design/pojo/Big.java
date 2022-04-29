@@ -3,7 +3,7 @@ package com.levil.design.pojo;
 import lombok.Data;
 
 @Data
-public class Big {
+public class Big extends AbstractBuildBO {
 
 
 }

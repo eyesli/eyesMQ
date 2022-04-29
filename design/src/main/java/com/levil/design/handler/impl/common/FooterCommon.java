@@ -6,7 +6,7 @@ import com.levil.design.pojo.Big;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FooterCommon extends AbstractBuildHandler {
+public class FooterCommon extends AbstractBuildHandler<Big> {
 
 
     @Override
