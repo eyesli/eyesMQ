@@ -1,23 +1,22 @@
 package com.levil.design.factory;
 
+import com.google.common.collect.Lists;
+import com.levil.design.core.constants.HandlerTypeEnum;
 import com.levil.design.core.constants.ProcessEnum;
 import com.levil.design.pojo.Big;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DefaultProcessFactory extends AbstractProcessFactory<Big>{
 
 
-
-    @Autowired
-    Pipeline<Big> pipeline;
     @Override
-    public Pipeline<Big> pipelineCreate() {
-        pipeline.createPipeline();
-
-        return null;
+    public List<HandlerTypeEnum> pipelineCreate() {
+        return Lists.newArrayList(HandlerTypeEnum.DEFAULT_1,HandlerTypeEnum.DEFAULT_2);
     }
+
 
     @Override
     public ProcessEnum getProcess() {

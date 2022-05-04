@@ -5,7 +5,7 @@ import com.levil.design.handler.impl.abstra.AbstractBuildHandler;
 import com.levil.design.pojo.Big;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class FooterCommon extends AbstractBuildHandler<Big> {
@@ -13,11 +13,10 @@ public class FooterCommon extends AbstractBuildHandler<Big> {
 
     @Override
     public void build(Big big) {
-        big.setMap(new HashMap<String, Object>() {
-            {
-                put("FooterCommon", HandlerTypeEnum.DEFAULT_2);
-            }
-        });
+        Map<String, Object> map = big.getMap();
+        map.put("FooterCommon", HandlerTypeEnum.DEFAULT_2);
+        big.setMap(map);
+        System.out.println("big = " + big);
     }
 
     @Override

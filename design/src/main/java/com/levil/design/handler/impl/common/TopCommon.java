@@ -5,11 +5,19 @@ import com.levil.design.handler.impl.abstra.AbstractBuildHandler;
 import com.levil.design.pojo.Big;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+
 @Service
 public class TopCommon extends AbstractBuildHandler<Big> {
     @Override
     public void build(Big big) {
-        System.out.println("TopCommonBuild " + big);
+        big.setMap(new HashMap<String, Object>() {
+            {
+                put("TopCommon", HandlerTypeEnum.DEFAULT_1);
+            }
+        });
+        System.out.println("big = " + big);
+
     }
 
     @Override

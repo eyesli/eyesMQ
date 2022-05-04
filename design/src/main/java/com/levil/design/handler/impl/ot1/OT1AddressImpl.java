@@ -16,4 +16,9 @@ public class OT1AddressImpl extends AbstractBuildHandler<Big> {
     public HandlerTypeEnum getHandlerType() {
         return HandlerTypeEnum.DEFAULT_16;
     }
+
+    @Override
+    public boolean isAsync() {
+        return false;
+    }
 }

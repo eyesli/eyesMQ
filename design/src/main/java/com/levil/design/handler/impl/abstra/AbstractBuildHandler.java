@@ -1,7 +1,7 @@
 package com.levil.design.handler.impl.abstra;
 
 import com.levil.design.core.constants.HandlerTypeEnum;
-import com.levil.design.factory.BuildActuator;
+import com.levil.design.factory.BuildStorage;
 import com.levil.design.handler.BuildHandler;
 import com.levil.design.pojo.AbstractBuildBO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public  abstract class AbstractBuildHandler<T extends AbstractBuildBO> implements BuildHandler<T> {
 
     @Autowired
-    BuildActuator<T> buildActuator;
+    BuildStorage<T> buildStorage;
 
     /**
      *  获取子类的所有泛型
@@ -28,7 +28,7 @@ public  abstract class AbstractBuildHandler<T extends AbstractBuildBO> implement
     @PostConstruct
     public void init() {
         //获取子类所有的泛型
-        buildActuator.register(getHandlerType(),this);
+        buildStorage.register(getHandlerType(),this);
         getGenericSubclass(getClass());
     }
 
