@@ -16,4 +16,9 @@ public class TopCommon extends AbstractBuildHandler<Big> {
     public HandlerTypeEnum getHandlerType() {
         return HandlerTypeEnum.DEFAULT_1;
     }
+
+    @Override
+    public boolean isAsync() {
+        return false;
+    }
 }

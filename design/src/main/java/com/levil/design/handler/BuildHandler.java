@@ -8,4 +8,6 @@ public interface BuildHandler<T> {
 
     HandlerTypeEnum getHandlerType();
 
+    boolean isAsync();
+
 }

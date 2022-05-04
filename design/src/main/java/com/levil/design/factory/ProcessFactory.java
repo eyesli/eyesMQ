@@ -1,6 +1,8 @@
 package com.levil.design.factory;
 
-public interface ProcessFactory<T> {
+import com.levil.design.core.constants.ProcessEnum;
 
-    BuildActuator build(T obj);
+public interface ProcessFactory<T> {
+    void build(T obj);
+    ProcessEnum getProcess();
 }

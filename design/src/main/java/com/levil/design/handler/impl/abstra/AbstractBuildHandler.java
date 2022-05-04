@@ -52,5 +52,6 @@ public  abstract class AbstractBuildHandler<T extends AbstractBuildBO> implement
 
     @Override
     public abstract HandlerTypeEnum getHandlerType();
-
+    @Override
+    public abstract boolean isAsync();
 }
