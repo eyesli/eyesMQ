@@ -13,7 +13,7 @@ import java.util.List;
 public abstract class AbstractProcessFactory<T extends AbstractBuildBO> implements ProcessFactory<T>{
 
     @Autowired
-    BuildStorage<T> buildStorage;
+    HandlerStorage<T> buildStorage;
     @Override
     public void build(T obj) {
         List<HandlerTypeEnum> handlerTypes = pipelineCreate();
