@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
-public class BuildStorage<T extends AbstractBuildBO> {
+public class HandlerStorage<T extends AbstractBuildBO> {
 
     private final Map<HandlerTypeEnum, BuildHandler<T>> handlerMap = new ConcurrentHashMap<>();
 
