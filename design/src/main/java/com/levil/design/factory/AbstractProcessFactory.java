@@ -1,7 +1,7 @@
 package com.levil.design.factory;
 
 import com.levil.design.core.constants.HandlerTypeEnum;
-import com.levil.design.core.constants.ProcessEnum;
+import com.levil.design.core.constants.OrderTypeEnum;
 import com.levil.design.handler.BuildHandler;
 import com.levil.design.pojo.AbstractBuildBO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +24,5 @@ public abstract class AbstractProcessFactory<T extends AbstractBuildBO> implemen
     }
     public abstract List<HandlerTypeEnum> pipelineCreate();
 
-    public abstract ProcessEnum getProcess();
+    public abstract OrderTypeEnum getOrderType();
 }

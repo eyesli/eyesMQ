@@ -2,7 +2,7 @@ package com.levil.design.factory;
 
 import com.google.common.collect.Lists;
 import com.levil.design.core.constants.HandlerTypeEnum;
-import com.levil.design.core.constants.ProcessEnum;
+import com.levil.design.core.constants.OrderTypeEnum;
 import com.levil.design.pojo.Big;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class DefaultProcessFactory extends AbstractProcessFactory<Big>{
 
 
     @Override
-    public ProcessEnum getProcess() {
-        return ProcessEnum.BRAZIL;
+    public OrderTypeEnum getOrderType() {
+        return OrderTypeEnum.ONE;
     }
 }
