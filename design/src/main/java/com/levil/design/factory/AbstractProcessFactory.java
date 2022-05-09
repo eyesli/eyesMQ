@@ -9,7 +9,7 @@ import com.levil.design.pojo.AbstractBuildBO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +34,7 @@ public abstract class AbstractProcessFactory<T extends AbstractBuildBO> implemen
     }
 
     public Map<HandlerGroupEnum,HandlerTypeEnum> pipeLine(){
-        Map<HandlerGroupEnum, HandlerTypeEnum> map = new HashMap<>();
+        Map<HandlerGroupEnum, HandlerTypeEnum> map = new LinkedHashMap<>();
         map.put(HandlerGroupEnum.LOGO,HandlerTypeEnum.DEFAULT_1);
         map.put(HandlerGroupEnum.HEADER,HandlerTypeEnum.DEFAULT_2);
         return map;
