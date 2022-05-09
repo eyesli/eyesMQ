@@ -18,7 +18,7 @@ public enum HandlerTypeEnum {
     /**
      * 假设一个默认的公共的构建有这些流程 要build这么多东西，实际可能更多一点
      */
-    DEFAULT_1(1, TopCommon.class, HandlerGroupEnum.HEADER, "默认模块构建1,比如是top") {
+    DEFAULT_1(1, TopCommon.class, HandlerGroupEnum.LOGO, "默认模块构建1,比如是top") {
     },
     DEFAULT_2(2, FooterCommon.class, HandlerGroupEnum.HEADER, "默认模块构建2,比如是footer"),
 

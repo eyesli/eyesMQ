@@ -39,7 +39,7 @@ public class BeanTest {
     @Test
     public void GenerateService() {
         defaultProcessFactory.build(new Big());
-//        List<HandlerTypeEnum> objects = Lists.newArrayList( DEFAULT_1,DEFAULT_2, DEFAULT_3);
+//        List<HandlerTypeEnum> objects = Lists.newArrayList(DEFAULT_1,DEFAULT_2, DEFAULT_3);
 ////        objects.parallelStream().forEach(e-> buildStorage.build(new Big(),e));
     }
 }
