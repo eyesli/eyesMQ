@@ -4,7 +4,7 @@ import com.levil.design.handler.BuildHandler;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PipeLineImpl<T> implements Pipeline<T>{
+public class PipeLineImpl<T> implements PipeLine<T> {
 
     private HandlerNode<T> tail = new HandlerNode<>();
 
