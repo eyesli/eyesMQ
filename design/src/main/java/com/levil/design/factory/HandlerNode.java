@@ -10,8 +10,8 @@ public class HandlerNode<T> {
     private HandlerNode<T> next;
 
     public void exec(T obj) {
-        handler.build(obj);
-        while (next.handler != null) {
+
+        while (next!= null) {
             next.handler.build(obj);
             next=next.getNext();
         }

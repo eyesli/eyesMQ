@@ -16,7 +16,7 @@ public class PipeLineImpl<T> implements PipeLine<T> {
         HandlerNode<T> linkedList = tail;
         for (BuildHandler<T> handler : buildHandler) {
             HandlerNode<T> handlerNode = new HandlerNode<>();
-            linkedList.setHandler(handler);
+            handlerNode.setHandler(handler);
             linkedList.setNext(handlerNode);
             linkedList = handlerNode;
         }
