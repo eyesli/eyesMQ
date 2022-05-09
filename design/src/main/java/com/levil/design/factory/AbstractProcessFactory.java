@@ -8,6 +8,7 @@ import com.levil.design.handler.BuildHandler;
 import com.levil.design.pojo.AbstractBuildBO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -33,12 +34,19 @@ public abstract class AbstractProcessFactory<T extends AbstractBuildBO> implemen
         }
     }
 
+    //TODO 链表实现
     public Map<HandlerGroupEnum,HandlerTypeEnum> pipeLine(){
         Map<HandlerGroupEnum, HandlerTypeEnum> map = new LinkedHashMap<>();
         map.put(HandlerGroupEnum.LOGO,HandlerTypeEnum.DEFAULT_1);
         map.put(HandlerGroupEnum.HEADER,HandlerTypeEnum.DEFAULT_2);
+        Map<HandlerGroupEnum, HandlerTypeEnum> handlerTypeEnumMap = replacePipeLine();
+        if (!ObjectUtils.isEmpty(handlerTypeEnumMap)){
+            map.putAll(handlerTypeEnumMap);
+        }
         return map;
     }
-
+    public  Map<HandlerGroupEnum,HandlerTypeEnum> replacePipeLine(){
+        return new LinkedHashMap<>();
+    }
     public abstract OrderTypeEnum getOrderType();
 }
