@@ -7,11 +7,12 @@ import lombok.Data;
 public class HandlerNode<T> {
 
     private BuildHandler<T> handler;
-    private HandlerNode<T> next = null;
+    private HandlerNode<T> next;
 
     public void exec(T obj) {
-        while (next != null) {
-            this.handler.build(obj);
+        handler.build(obj);
+        while (next.handler != null) {
+            next.handler.build(obj);
             next=next.getNext();
         }
     }

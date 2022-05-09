@@ -26,7 +26,6 @@ public class HandlerStorage<T extends AbstractBuildBO> {
             objects.add(tBuildHandler);
         }
         return objects;
-
     }
 
 //    public void build(T obj,HandlerTypeEnum handlerTypeEnum){
