@@ -5,15 +5,14 @@ import com.levil.design.handler.impl.abstra.AbstractBuildHandler;
 import com.levil.design.pojo.Big;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Service
 public class TitleCommon extends AbstractBuildHandler<Big> {
     @Override
     public void build(Big big) {
-        Map<String, Object> map = big.getMap();
-        map.put("TitleCommon", HandlerTypeEnum.DEFAULT_3);
-        big.setMap(map);
+        big.setString3("TitleCommon");
         System.out.println("big = " + big);
     }
 

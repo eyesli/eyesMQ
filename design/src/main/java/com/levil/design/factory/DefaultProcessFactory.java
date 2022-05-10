@@ -7,25 +7,19 @@ import com.levil.design.pojo.Big;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Service
-public class DefaultProcessFactory extends AbstractProcessFactory<Big>{
+public class DefaultProcessFactory extends AbstractProcessFactory<Big> {
 
-
-    @Override
-    public LinkedHashMap<HandlerGroupEnum,HandlerTypeEnum> replacePipeLine() {
-        LinkedHashMap<HandlerGroupEnum,HandlerTypeEnum> map = new LinkedHashMap<>();
-        map.put(HandlerGroupEnum.HEADER,HandlerTypeEnum.DEFAULT_1);
-        return map;
-    }
 
     @Override
     public OrderTypeEnum getOrderType() {
-        return OrderTypeEnum.ONE;
+        return OrderTypeEnum.DEFAULT;
     }
 
     @Override
     public StructureTypeEnum getStructureType() {
-        return StructureTypeEnum.LINKED_LIST;
+        return StructureTypeEnum.HASH_ORDER;
     }
 }

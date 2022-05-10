@@ -5,16 +5,20 @@ import com.levil.design.handler.impl.abstra.AbstractBuildHandler;
 import com.levil.design.pojo.Big;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 @Service
 public class OT1AddressImpl extends AbstractBuildHandler<Big> {
     @Override
     public void build(Big big) {
-        System.out.println("OT1重写Address " + big);
+        big.setString4("OT1AddressImpl");
+        System.out.println("big = " + big);
     }
 
     @Override
     public HandlerTypeEnum getHandlerType() {
-        return HandlerTypeEnum.DEFAULT_16;
+        return HandlerTypeEnum.DEFAULT_4;
     }
 
     @Override

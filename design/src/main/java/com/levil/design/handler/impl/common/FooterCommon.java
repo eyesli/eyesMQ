@@ -5,6 +5,7 @@ import com.levil.design.handler.impl.abstra.AbstractBuildHandler;
 import com.levil.design.pojo.Big;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Service
@@ -13,9 +14,7 @@ public class FooterCommon extends AbstractBuildHandler<Big> {
 
     @Override
     public void build(Big big) {
-        Map<String, Object> map = big.getMap();
-        map.put("FooterCommon", HandlerTypeEnum.DEFAULT_2);
-        big.setMap(map);
+        big.setString2("FooterCommon");
         System.out.println("big = " + big);
     }
 
@@ -26,6 +25,6 @@ public class FooterCommon extends AbstractBuildHandler<Big> {
 
     @Override
     public boolean isAsync() {
-        return false;
+        return true;
     }
 }

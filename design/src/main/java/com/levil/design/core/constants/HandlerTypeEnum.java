@@ -1,9 +1,8 @@
 package com.levil.design.core.constants;
 
 import com.levil.design.handler.impl.abstra.AbstractBuildHandler;
-import com.levil.design.handler.impl.common.FooterCommon;
-import com.levil.design.handler.impl.common.TitleCommon;
-import com.levil.design.handler.impl.common.TopCommon;
+import com.levil.design.handler.impl.common.*;
+import com.levil.design.handler.impl.ot1.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -22,13 +21,14 @@ public enum HandlerTypeEnum {
     },
     DEFAULT_2(2, FooterCommon.class, HandlerGroupEnum.HEADER, "默认模块构建2,比如是footer"),
 
-    DEFAULT_3(3, TitleCommon.class, HandlerGroupEnum.HEADER, "默认模块构建3，比如是title"),
-    DEFAULT_4(4, FooterCommon.class, HandlerGroupEnum.LOGO, "默认模块构建4，比如是address"),
-    DEFAULT_5(5, FooterCommon.class, HandlerGroupEnum.LOGO, "默认模块构建5"),
-    DEFAULT_6(6, FooterCommon.class, HandlerGroupEnum.LOGO, "默认模块构建5"),
-    DEFAULT_7(7, FooterCommon.class, HandlerGroupEnum.LOGO, "默认模块构建5"),
-    DEFAULT_8(8, FooterCommon.class, HandlerGroupEnum.LOGO, "默认模块构建5"),
-    DEFAULT_16(16, FooterCommon.class, HandlerGroupEnum.LOGO, "默认模块构建16");
+    DEFAULT_3(3, TitleCommon.class, HandlerGroupEnum.BILL_TO, "默认模块构建3，比如是title"),
+    DEFAULT_4(4, OT1AddressImpl.class, HandlerGroupEnum.ADDRESS, "默认模块构建4，比如是address"),
+    DEFAULT_5(5, RemitToCommon.class, HandlerGroupEnum.REMIT_TO, "默认模块构建5"),
+    DEFAULT_6(6, OT1FooterImpl.class, HandlerGroupEnum.REMIT_TO, "默认模块构建5");
+    //    DEFAULT_6(6, FooterCommon.class, HandlerGroupEnum.LOGO, "默认模块构建5"),
+//    DEFAULT_7(7, FooterCommon.class, HandlerGroupEnum.LOGO, "默认模块构建5"),
+//    DEFAULT_8(8, FooterCommon.class, HandlerGroupEnum.LOGO, "默认模块构建5"),
+//    DEFAULT_16(16, FooterCommon.class, HandlerGroupEnum.LOGO, "默认模块构建16");
     //类型递增
     private final Integer type;
     //枚举对应的类

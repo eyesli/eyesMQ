@@ -5,6 +5,7 @@ import com.levil.design.factory.DefaultProcessFactory;
 import com.levil.design.handler.BuildHandler;
 import com.levil.design.pojo.Big;
 import com.levil.design.service.GenerateService;
+import com.levil.design.service.Impl.GenerateServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class BeanTest {
             System.out.println("beanDefinitionName = " + beanDefinitionName);
         }
     }
+
     @Test
     public void getBeanNamesForType() {
         String[] beanDefinitionNames = applicationContext.getBeanNamesForType(BuildHandler.class);
@@ -34,11 +36,15 @@ public class BeanTest {
             System.out.println("beanDefinitionName = " + beanDefinitionName);
         }
     }
-    @Autowired
-    DefaultProcessFactory defaultProcessFactory;
+
+
     @Test
     public void GenerateService() {
-        defaultProcessFactory.build(new Big());
+        long startTime = System.currentTimeMillis();
+        generateService.generate(new Big());
+        long endTime = System.currentTimeMillis();
+        long usedTime = (endTime - startTime);
+        System.out.println("usedTime = " + usedTime);
 //        List<HandlerTypeEnum> objects = Lists.newArrayList(DEFAULT_1,DEFAULT_2, DEFAULT_3);
 ////        objects.parallelStream().forEach(e-> buildStorage.build(new Big(),e));
     }

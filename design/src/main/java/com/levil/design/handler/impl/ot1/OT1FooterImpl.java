@@ -5,18 +5,22 @@ import com.levil.design.handler.impl.common.FooterCommon;
 import com.levil.design.pojo.Big;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 @Service
 public class OT1FooterImpl extends FooterCommon {
 
 
     @Override
     public void build(Big big) {
-        System.out.println("OT1重写或者是增强= " + big);
+        big.setString5("OT1FooterImpl");
+        System.out.println("big = " + big);
     }
 
     @Override
     public HandlerTypeEnum getHandlerType() {
-        return HandlerTypeEnum.DEFAULT_5;
+        return HandlerTypeEnum.DEFAULT_6;
     }
 
 }
