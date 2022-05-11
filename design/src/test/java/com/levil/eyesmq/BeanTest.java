@@ -3,6 +3,7 @@ package com.levil.eyesmq;
 import com.levil.design.DesignApplication;
 import com.levil.design.factory.DefaultProcessFactory;
 import com.levil.design.handler.BuildHandler;
+import com.levil.design.handler.impl.abstra.AbstractBuildHandler;
 import com.levil.design.pojo.Big;
 import com.levil.design.service.GenerateService;
 import com.levil.design.service.Impl.GenerateServiceImpl;
@@ -31,7 +32,7 @@ public class BeanTest {
 
     @Test
     public void getBeanNamesForType() {
-        String[] beanDefinitionNames = applicationContext.getBeanNamesForType(BuildHandler.class);
+        String[] beanDefinitionNames = applicationContext.getBeanNamesForType(AbstractBuildHandler.class);
         for (String beanDefinitionName : beanDefinitionNames) {
             System.out.println("beanDefinitionName = " + beanDefinitionName);
         }

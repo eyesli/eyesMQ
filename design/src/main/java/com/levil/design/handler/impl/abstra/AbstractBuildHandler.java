@@ -24,8 +24,14 @@ public abstract class AbstractBuildHandler<T extends AbstractBuildBO> implements
      */
     private final List<Class<? extends AbstractBuildBO>> genericSubclass = new CopyOnWriteArrayList<>();
 
+    /**
+     *父类的@PostConstruct，所有子类都必须执行一次,通过spring反射实现
+     * 所以定义权限是没用的。因为不是通过继承过去的
+     * 源码地址
+     * org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor#buildLifecycleMetadata(java.lang.Class)
+     */
     @PostConstruct
-    public void init() {
+    void init() {
         buildStorage.register(getHandlerType(), this);
         //获取子类所有的泛型
         getGenericSubclass(getClass());
@@ -42,7 +48,6 @@ public abstract class AbstractBuildHandler<T extends AbstractBuildBO> implements
             //存在多级继承
             getGenericSubclass((Class) (superclass));
         }
-        System.out.println("genericSubclass = " + genericSubclass);
     }
 
 
