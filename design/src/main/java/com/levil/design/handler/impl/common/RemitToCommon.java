@@ -1,5 +1,6 @@
 package com.levil.design.handler.impl.common;
 
+import com.levil.design.core.constants.AsyncModeEnum;
 import com.levil.design.core.constants.HandlerTypeEnum;
 import com.levil.design.handler.impl.abstra.AbstractBuildHandler;
 import com.levil.design.pojo.Big;
@@ -20,7 +21,7 @@ public class RemitToCommon extends AbstractBuildHandler<Big> {
     }
 
     @Override
-    public boolean isAsync() {
-        return false;
+    public AsyncModeEnum asyncMode() {
+        return AsyncModeEnum.RUN_ASYNC;
     }
 }

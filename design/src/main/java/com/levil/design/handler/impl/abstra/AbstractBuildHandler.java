@@ -1,5 +1,6 @@
 package com.levil.design.handler.impl.abstra;
 
+import com.levil.design.core.constants.AsyncModeEnum;
 import com.levil.design.core.constants.HandlerTypeEnum;
 import com.levil.design.factory.BuildStorage;
 import com.levil.design.handler.BuildHandler;
@@ -58,5 +59,5 @@ public abstract class AbstractBuildHandler<T extends AbstractBuildBO> implements
     public abstract HandlerTypeEnum getHandlerType();
 
     @Override
-    public abstract boolean isAsync();
+    public abstract AsyncModeEnum asyncMode();
 }

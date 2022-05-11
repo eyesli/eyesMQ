@@ -1,5 +1,7 @@
 package com.levil.design.factory;
 
+import com.google.common.collect.Lists;
+import com.levil.design.core.constants.AsyncModeEnum;
 import com.levil.design.core.constants.HandlerGroupEnum;
 import com.levil.design.core.constants.HandlerTypeEnum;
 import com.levil.design.core.constants.OrderTypeEnum;
@@ -14,8 +16,11 @@ import org.springframework.util.ObjectUtils;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public abstract class AbstractProcessFactory<T extends AbstractBuildBO> implements ProcessFactory<T>, CommandLineRunner {
@@ -84,13 +89,19 @@ public abstract class AbstractProcessFactory<T extends AbstractBuildBO> implemen
 
     private void hashOrder(T obj) {
         Map<HandlerGroupEnum, HandlerTypeEnum> map = this.pipeLineHash();
+
+        List<CompletableFuture<Void>> futureList = Lists.newArrayList();
+
         for (Map.Entry<HandlerGroupEnum, HandlerTypeEnum> entry : map.entrySet()) {
             BuildHandler<T> buildHandler = this.buildStorage.getBuildHandler(entry.getValue());
-            if (buildHandler.isAsync()) {
-                //todo 部分异步异步等待，还是异步非等待
-                System.out.println("异步执行" + buildHandler.getHandlerType());
+            if (buildHandler.asyncMode()==AsyncModeEnum.RUN_ASYNC){
+                futureList.add(CompletableFuture.runAsync(() -> buildHandler.build(obj)));
             }
+//            buildHandler.asyncMode().asyncMethod(obj);
+
             buildHandler.build(obj);
+            CompletableFuture<Void> combinedFuture = CompletableFuture.allOf(futureList.toArray(new CompletableFuture[]{}));
+            combinedFuture.join();
         }
     }
 
