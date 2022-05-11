@@ -31,7 +31,7 @@ public abstract class AbstractBuildHandler<T extends AbstractBuildBO> implements
      * org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor#buildLifecycleMetadata(java.lang.Class)
      */
     @PostConstruct
-    void init() {
+    private void init() {
         buildStorage.register(getHandlerType(), this);
         //获取子类所有的泛型
         getGenericSubclass(getClass());
