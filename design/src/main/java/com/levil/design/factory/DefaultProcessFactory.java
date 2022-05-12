@@ -20,6 +20,6 @@ public class DefaultProcessFactory extends AbstractProcessFactory<Big> {
 
     @Override
     public StructureTypeEnum getStructureType() {
-        return StructureTypeEnum.HASH_ORDER;
+        return StructureTypeEnum.LINKED_LIST;
     }
 }

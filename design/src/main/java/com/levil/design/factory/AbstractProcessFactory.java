@@ -59,50 +59,55 @@ public abstract class AbstractProcessFactory<T extends AbstractBuildBO> implemen
             linkedList.setNext(handlerNode);
             linkedList = handlerNode;
         }
+        header.setLength(this.defaultProcessMap.size());
     }
 
     @Override
-    public void build(T obj) {
+    public Boolean invoicePrint(T obj) {
+        this.print(this.build(obj));
+        return true;
+    }
 
+    private void print(T build) {
+        System.out.println("执行打印操作 = " + build);
+    }
+
+    public T build(T obj) {
         switch (this.getStructureType()) {
             case LINKED_LIST:
                 this.pipelineLinkedList().exec(obj);
-                break;
+                return obj;
             case HASH_ORDER:
-                this.hashOrder(obj);
-                break;
+                return this.hashOrder(obj);
             case HASH_DISORDER:
                 //目前还没单线程快
-                this.hashDisorder(obj);
-                break;
+                return this.hashDisorder(obj);
             default:
                 throw new RuntimeException("未定义");
         }
-
     }
 
-    private void hashDisorder(T obj) {
+    private T hashDisorder(T obj) {
         Map<HandlerGroupEnum, HandlerTypeEnum> maps = this.pipeLineHash();
         this.buildStorage.getBuildHandlers(new ArrayList<>(maps.values())).parallelStream().forEach(e -> e.build(obj));
-        System.out.println("obj = " + obj);
+        return obj;
     }
 
-    private void hashOrder(T obj) {
+    @SuppressWarnings("all")
+    private T hashOrder(T obj) {
         Map<HandlerGroupEnum, HandlerTypeEnum> map = this.pipeLineHash();
 
-        List<CompletableFuture<Void>> futureList = Lists.newArrayList();
+        List<CompletableFuture> futureList = Lists.newArrayList();
 
         for (Map.Entry<HandlerGroupEnum, HandlerTypeEnum> entry : map.entrySet()) {
             BuildHandler<T> buildHandler = this.buildStorage.getBuildHandler(entry.getValue());
-            if (buildHandler.asyncMode()==AsyncModeEnum.RUN_ASYNC){
-                futureList.add(CompletableFuture.runAsync(() -> buildHandler.build(obj)));
+            CompletableFuture completableFuture = buildHandler.asyncModeActuator(obj);
+            if (completableFuture != null) {
+                futureList.add(completableFuture);
             }
-//            buildHandler.asyncMode().asyncMethod(obj);
-
-            buildHandler.build(obj);
-            CompletableFuture<Void> combinedFuture = CompletableFuture.allOf(futureList.toArray(new CompletableFuture[]{}));
-            combinedFuture.join();
         }
+        CompletableFuture.allOf(futureList.toArray(new CompletableFuture[]{})).join();
+        return obj;
     }
 
     protected Map<HandlerGroupEnum, HandlerTypeEnum> pipeLineHash() {
@@ -124,24 +129,35 @@ public abstract class AbstractProcessFactory<T extends AbstractBuildBO> implemen
         }
         HandlerNode<T> que = handlerNode.getNext();
         HandlerNode<T> pre = handlerNode;
-        //todo 链表替换 双向链表会不会好一点while 会不会死循环，添加强制终止条件
-        for (Map.Entry<HandlerGroupEnum, HandlerTypeEnum> entry : map.entrySet()) {
-            while (que != null) {
-                if (que.getHandlerGroupEnum() == entry.getKey()) {
-                    HandlerNode<T> next = que.getNext();
-                    HandlerNode<T> newNode = new HandlerNode<>();
-                    newNode.setNext(next);
-                    BuildHandler<T> buildHandler = this.buildStorage.getBuildHandler(entry.getValue());
-                    newNode.setHandler(buildHandler);
-                    newNode.setHandlerGroupEnum(entry.getKey());
-                    pre.setNext(newNode);
-                }
-                que = que.getNext();
-                pre = pre.getNext();
+        int count = 0;
+
+        while (que != null) {
+            if (count >= handlerNode.getLength()) {
+                throw new RuntimeException("死循环");
             }
 
+            if (map.containsKey(que.getHandlerGroupEnum())) {
+                HandlerNode<T> next = que.getNext();
+                HandlerNode<T> newNode = new HandlerNode<>();
+                newNode.setNext(next);
+                BuildHandler<T> buildHandler = this.buildStorage.getBuildHandler(map.get(que.getHandlerGroupEnum()));
+                newNode.setHandler(buildHandler);
+                newNode.setHandlerGroupEnum(que.getHandlerGroupEnum());
+                pre.setNext(newNode);
+                map.remove(que.getHandlerGroupEnum());
+            }
+            que = que.getNext();
+            pre = pre.getNext();
+            count++;
         }
-
+        for (Map.Entry<HandlerGroupEnum, HandlerTypeEnum> entry : map.entrySet()) {
+            HandlerNode<T> newNode = new HandlerNode<>();
+            BuildHandler<T> buildHandler = this.buildStorage.getBuildHandler(entry.getValue());
+            newNode.setHandler(buildHandler);
+            newNode.setHandlerGroupEnum(entry.getKey());
+            pre.setNext(newNode);
+            pre = pre.getNext();
+        }
         return handlerNode;
     }
 

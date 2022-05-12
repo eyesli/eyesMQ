@@ -6,16 +6,12 @@ import com.levil.design.handler.impl.abstra.AbstractBuildHandler;
 import com.levil.design.pojo.Big;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 @Service
 public class TopCommon extends AbstractBuildHandler<Big> {
     @Override
-    public void build(Big big) {
+    public Big build(Big big) {
         big.setString1("TopCommon");
-        System.out.println("big = " + big);
+        return big;
 
     }
 
@@ -26,6 +22,6 @@ public class TopCommon extends AbstractBuildHandler<Big> {
 
     @Override
     public AsyncModeEnum asyncMode() {
-        return AsyncModeEnum.RUN_ASYNC;
+        return AsyncModeEnum.NO_ASYNC;
     }
 }

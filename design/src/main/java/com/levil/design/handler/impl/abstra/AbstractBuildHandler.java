@@ -12,6 +12,7 @@ import javax.annotation.PostConstruct;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service
@@ -53,11 +54,12 @@ public abstract class AbstractBuildHandler<T extends AbstractBuildBO> implements
 
 
     @Override
-    public abstract void build(T big);
+    public abstract T build(T big);
 
     @Override
     public abstract HandlerTypeEnum getHandlerType();
 
     @Override
     public abstract AsyncModeEnum asyncMode();
+
 }

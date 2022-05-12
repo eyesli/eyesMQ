@@ -1,5 +1,6 @@
 package com.levil.design.factory;
 
+import com.google.common.collect.Lists;
 import com.levil.design.core.constants.HandlerGroupEnum;
 import com.levil.design.handler.BuildHandler;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 
 
 @Data
@@ -18,14 +20,15 @@ import java.util.Random;
 @AllArgsConstructor
 public class HandlerNode<T> {
 
-    private HandlerGroupEnum handlerGroupEnum=null;
-    private BuildHandler<T> handler=null;
-    private HandlerNode<T> next=null;
+    private HandlerGroupEnum handlerGroupEnum = null;
+    private BuildHandler<T> handler = null;
+    private HandlerNode<T> next = null;
+    private int length;
 
     public void exec(T obj) {
 
-        while (next != null) {
-            next.handler.build(obj);
+        while (this.next != null) {
+            next.handler.asyncModeActuator(obj);
             next = next.getNext();
         }
     }
@@ -42,6 +45,7 @@ public class HandlerNode<T> {
             hash(handlerNode);
         }
     }
+
     public void deepCopy(HandlerNode<T> handlerNode) {
         Random r = new Random();
         int num = r.nextInt(100);
@@ -54,6 +58,7 @@ public class HandlerNode<T> {
             hash(handlerNode);
         }
     }
+
     private void list(HandlerNode<T> handlerNode) {
         List<HandlerNode<T>> list = new LinkedList<>();
         while (handlerNode != null) {

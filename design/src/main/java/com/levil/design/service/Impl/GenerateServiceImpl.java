@@ -16,9 +16,9 @@ public class GenerateServiceImpl implements GenerateService {
     @Override
     public void generate(Big big) {
         Big data = new Big();
-        data.setOrderType(1);
+        data.setOrderType(-2);
 
         ProcessFactory<Big> orderTypeFactory = bigBuildStorage.getOrderTypeFactory(data);
-        orderTypeFactory.build(big);
+        orderTypeFactory.invoicePrint(big);
     }
 }

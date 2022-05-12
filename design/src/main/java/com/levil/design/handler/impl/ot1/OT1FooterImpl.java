@@ -13,9 +13,9 @@ public class OT1FooterImpl extends FooterCommon {
 
 
     @Override
-    public void build(Big big) {
+    public Big build(Big big) {
         big.setString5("OT1FooterImpl");
-        System.out.println("big = " + big);
+        return big;
     }
 
     @Override

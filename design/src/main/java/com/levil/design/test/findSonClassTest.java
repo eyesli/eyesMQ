@@ -22,7 +22,6 @@ public class findSonClassTest implements BeanPostProcessor {
 
 		if (bean instanceof AbstractBuildHandler) {
 			AbstractBuildHandler dict = (AbstractBuildHandler) bean;
-			System.out.println("AbstractBuildHandler = " + dict);
 		}
 		return bean;
 	}

@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class RemitToCommon extends AbstractBuildHandler<Big> {
     @Override
-    public void build(Big big) {
+    public Big build(Big big) {
         big.setString5("RemitToCommon");
-        System.out.println("big = " + big);
+        return big;
     }
 
     @Override
@@ -22,6 +22,6 @@ public class RemitToCommon extends AbstractBuildHandler<Big> {
 
     @Override
     public AsyncModeEnum asyncMode() {
-        return AsyncModeEnum.RUN_ASYNC;
+        return AsyncModeEnum.NO_ASYNC;
     }
 }
