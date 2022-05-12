@@ -156,6 +156,7 @@ public abstract class AbstractProcessFactory<T extends AbstractBuildBO> implemen
             newNode.setHandlerGroupEnum(entry.getKey());
             pre.setNext(newNode);
             pre = pre.getNext();
+            handlerNode.setLength(handlerNode.getLength()+1);
         }
         return handlerNode;
     }

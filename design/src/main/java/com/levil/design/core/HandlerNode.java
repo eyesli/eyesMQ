@@ -44,7 +44,7 @@ public class HandlerNode<T> {
     public HandlerNode(HandlerNode<T> handlerNode) {
         Random r = new Random();
         int num = r.nextInt(100);
-        if (num % 2 == 0) {
+        if (true) {
             //demo List实现快1ms
             System.out.println("偶数实现");
             list(handlerNode);
@@ -57,7 +57,7 @@ public class HandlerNode<T> {
     public void deepCopy(HandlerNode<T> handlerNode) {
         Random r = new Random();
         int num = r.nextInt(100);
-        if (num % 2 == 0) {
+        if (true) {
             //demo List实现快1ms
             System.out.println("偶数实现");
             list(handlerNode);
@@ -68,35 +68,39 @@ public class HandlerNode<T> {
     }
 
     private void list(HandlerNode<T> handlerNode) {
+
         List<HandlerNode<T>> list = new LinkedList<>();
-        while (handlerNode != null) {
+        HandlerNode<T> header = handlerNode;
+        while (header != null) {
             HandlerNode<T> newNode = new HandlerNode<>();
-            newNode.setHandler(handlerNode.getHandler());
-            newNode.setNext(handlerNode.getNext());
-            newNode.setHandlerGroupEnum(handlerNode.getHandlerGroupEnum());
+            newNode.setHandler(header.getHandler());
+            newNode.setNext(header.getNext());
+            newNode.setHandlerGroupEnum(header.getHandlerGroupEnum());
             list.add(newNode);
-            handlerNode = handlerNode.getNext();
+            header = header.getNext();
         }
         HandlerNode<T> handler = list.get(0);
         this.setNext(handler.getNext());
         this.setHandlerGroupEnum(handler.getHandlerGroupEnum());
         this.setHandler(handler.getHandler());
+        this.setLength(handlerNode.getLength());
     }
 
     private void hash(HandlerNode<T> handlerNode) {
         Map<HandlerNode<T>, HandlerNode<T>> map = new LinkedHashMap<>();
         HandlerNode<T> temp = handlerNode;
-        while (handlerNode != null) {
+        while (temp != null) {
             HandlerNode<T> newNode = new HandlerNode<>();
-            newNode.setHandler(handlerNode.getHandler());
-            newNode.setNext(handlerNode.getNext());
-            newNode.setHandlerGroupEnum(handlerNode.getHandlerGroupEnum());
-            map.put(handlerNode, newNode);
-            handlerNode = handlerNode.getNext();
+            newNode.setHandler(temp.getHandler());
+            newNode.setNext(temp.getNext());
+            newNode.setHandlerGroupEnum(temp.getHandlerGroupEnum());
+            map.put(temp, newNode);
+            temp = temp.getNext();
         }
-        HandlerNode<T> handler = map.get(temp);
+        HandlerNode<T> handler = map.get(handlerNode);
         this.setNext(handler.getNext());
         this.setHandlerGroupEnum(handler.getHandlerGroupEnum());
         this.setHandler(handler.getHandler());
+        this.setLength(handlerNode.getLength());
     }
 }
