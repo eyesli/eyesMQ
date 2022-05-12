@@ -44,7 +44,7 @@ public class HandlerNode<T> {
     public HandlerNode(HandlerNode<T> handlerNode) {
         Random r = new Random();
         int num = r.nextInt(100);
-        if (true) {
+        if (num % 2 == 0) {
             //demo List实现快1ms
             System.out.println("偶数实现");
             list(handlerNode);
