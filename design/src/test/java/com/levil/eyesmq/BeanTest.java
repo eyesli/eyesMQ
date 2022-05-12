@@ -20,7 +20,7 @@ public class BeanTest {
     @Autowired
     ApplicationContext applicationContext;
     @Autowired
-    GenerateService generateService;
+    GenerateService<Big> generateService;
 
     @Test
     public void getBeanDefinitionNames() {

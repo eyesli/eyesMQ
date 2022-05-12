@@ -1,4 +1,4 @@
-package com.levil.design.core.constants;
+package com.levil.design.constants;
 
 import com.levil.design.handler.impl.abstra.AbstractBuildHandler;
 import com.levil.design.handler.impl.common.*;

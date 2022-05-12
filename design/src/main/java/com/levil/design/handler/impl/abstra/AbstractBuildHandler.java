@@ -1,8 +1,8 @@
 package com.levil.design.handler.impl.abstra;
 
-import com.levil.design.core.constants.AsyncModeEnum;
-import com.levil.design.core.constants.HandlerTypeEnum;
-import com.levil.design.factory.BuildStorage;
+import com.levil.design.constants.AsyncModeEnum;
+import com.levil.design.constants.HandlerTypeEnum;
+import com.levil.design.core.BuildStorage;
 import com.levil.design.handler.BuildHandler;
 import com.levil.design.pojo.AbstractBuildBO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import javax.annotation.PostConstruct;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service
@@ -27,7 +26,7 @@ public abstract class AbstractBuildHandler<T extends AbstractBuildBO> implements
     private final List<Class<? extends AbstractBuildBO>> genericSubclass = new CopyOnWriteArrayList<>();
 
     /**
-     *父类的@PostConstruct，所有子类都必须执行一次,通过spring反射实现
+     * 父类的@PostConstruct，所有子类都必须执行一次,通过spring反射实现
      * 所以定义权限是没用的。因为不是通过继承过去的
      * 源码地址
      * org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor#buildLifecycleMetadata(java.lang.Class)

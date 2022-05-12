@@ -1,4 +1,4 @@
-package com.levil.design.core.constants;
+package com.levil.design.constants;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

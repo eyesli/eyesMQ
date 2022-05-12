@@ -1,17 +1,7 @@
-package com.levil.design.core.constants;
+package com.levil.design.constants;
 
-import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.util.List;
-
-import static com.levil.design.core.constants.HandlerTypeEnum.DEFAULT_1;
-
-import static com.levil.design.core.constants.HandlerTypeEnum.DEFAULT_2;
-import static com.levil.design.core.constants.HandlerTypeEnum.DEFAULT_3;
-import static com.levil.design.core.constants.HandlerTypeEnum.DEFAULT_4;
-import static com.levil.design.core.constants.HandlerTypeEnum.DEFAULT_5;
 
 
 @Getter

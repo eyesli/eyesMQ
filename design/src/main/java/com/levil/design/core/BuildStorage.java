@@ -1,8 +1,9 @@
-package com.levil.design.factory;
+package com.levil.design.core;
 
 import com.google.common.collect.Lists;
-import com.levil.design.core.constants.HandlerTypeEnum;
-import com.levil.design.core.constants.OrderTypeEnum;
+import com.levil.design.constants.HandlerTypeEnum;
+import com.levil.design.constants.OrderTypeEnum;
+import com.levil.design.factory.ProcessFactory;
 import com.levil.design.handler.BuildHandler;
 import com.levil.design.pojo.AbstractBuildBO;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
 package com.levil.design.handler.impl.common;
 
-import com.levil.design.core.constants.AsyncModeEnum;
-import com.levil.design.core.constants.HandlerTypeEnum;
+import com.levil.design.constants.AsyncModeEnum;
+import com.levil.design.constants.HandlerTypeEnum;
 import com.levil.design.handler.impl.abstra.AbstractBuildHandler;
 import com.levil.design.pojo.Big;
 import org.springframework.stereotype.Service;

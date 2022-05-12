@@ -1,9 +1,10 @@
 package com.levil.design.handler;
 
-import com.levil.design.core.constants.AsyncModeEnum;
-import com.levil.design.core.constants.HandlerTypeEnum;
+import com.levil.design.constants.AsyncModeEnum;
+import com.levil.design.constants.HandlerTypeEnum;
 
 import java.util.concurrent.CompletableFuture;
+
 @SuppressWarnings("all")
 public interface BuildHandler<T> {
 
@@ -13,8 +14,8 @@ public interface BuildHandler<T> {
 
     AsyncModeEnum asyncMode();
 
-    default CompletableFuture asyncModeActuator(T obj){
-        return this.asyncMode().asyncMethod(this,obj);
+    default CompletableFuture asyncModeActuator(T obj) {
+        return this.asyncMode().asyncMethod(this, obj);
     }
 
 }

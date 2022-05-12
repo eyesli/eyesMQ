@@ -1,7 +1,7 @@
-package com.levil.design.factory;
+package com.levil.design.core;
 
 import com.google.common.collect.Lists;
-import com.levil.design.core.constants.HandlerGroupEnum;
+import com.levil.design.constants.HandlerGroupEnum;
 import com.levil.design.handler.BuildHandler;
 import lombok.AllArgsConstructor;
 import lombok.Data;

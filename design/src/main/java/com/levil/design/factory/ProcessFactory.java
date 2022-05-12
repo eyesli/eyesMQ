@@ -1,6 +1,6 @@
 package com.levil.design.factory;
 
-import com.levil.design.core.constants.OrderTypeEnum;
+import com.levil.design.constants.OrderTypeEnum;
 
 public interface ProcessFactory<T> {
 
