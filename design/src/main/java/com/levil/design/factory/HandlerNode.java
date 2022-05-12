@@ -18,6 +18,7 @@ import java.util.concurrent.CompletableFuture;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@SuppressWarnings("all")
 public class HandlerNode<T> {
 
     private HandlerGroupEnum handlerGroupEnum = null;
@@ -25,12 +26,18 @@ public class HandlerNode<T> {
     private HandlerNode<T> next = null;
     private int length;
 
-    public void exec(T obj) {
+    public T exec(T obj) {
+        List<CompletableFuture> futureList = Lists.newArrayList();
 
         while (this.next != null) {
-            next.handler.asyncModeActuator(obj);
+            CompletableFuture completableFuture = next.handler.asyncModeActuator(obj);
+            if (completableFuture != null) {
+                futureList.add(completableFuture);
+            }
             next = next.getNext();
         }
+        CompletableFuture.allOf(futureList.toArray(new CompletableFuture[]{})).join();
+        return obj;
     }
 
     public HandlerNode(HandlerNode<T> handlerNode) {

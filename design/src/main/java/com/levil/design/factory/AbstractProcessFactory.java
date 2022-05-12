@@ -75,8 +75,7 @@ public abstract class AbstractProcessFactory<T extends AbstractBuildBO> implemen
     public T build(T obj) {
         switch (this.getStructureType()) {
             case LINKED_LIST:
-                this.pipelineLinkedList().exec(obj);
-                return obj;
+                return this.pipelineLinkedList().exec(obj);
             case HASH_ORDER:
                 return this.hashOrder(obj);
             case HASH_DISORDER:
