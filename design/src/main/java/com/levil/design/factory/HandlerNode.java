@@ -30,6 +30,7 @@ public class HandlerNode<T> {
         List<CompletableFuture> futureList = Lists.newArrayList();
 
         while (this.next != null) {
+            //这是一个带头结点的单链表,直接拿next
             CompletableFuture completableFuture = next.handler.asyncModeActuator(obj);
             if (completableFuture != null) {
                 futureList.add(completableFuture);
