@@ -4,7 +4,7 @@ import com.levil.design.constants.OrderTypeEnum;
 
 public interface ProcessFactory<T> {
 
-    Boolean invoicePrint(T obj);
+    void invoicePrint(T obj);
 
     OrderTypeEnum getOrderType();
 }

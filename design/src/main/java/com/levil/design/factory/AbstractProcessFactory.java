@@ -63,9 +63,8 @@ public abstract class AbstractProcessFactory<T extends AbstractBuildBO> implemen
     }
 
     @Override
-    public Boolean invoicePrint(T obj) {
+    public void invoicePrint(T obj) {
         this.print(this.build(obj));
-        return true;
     }
 
     private void print(T build) {
@@ -134,7 +133,9 @@ public abstract class AbstractProcessFactory<T extends AbstractBuildBO> implemen
             if (count >= handlerNode.getLength()) {
                 throw new RuntimeException("死循环");
             }
-
+            /**
+             * 同一个组就替换
+             */
             if (map.containsKey(que.getHandlerGroupEnum())) {
                 HandlerNode<T> next = que.getNext();
                 HandlerNode<T> newNode = new HandlerNode<>();
@@ -149,6 +150,9 @@ public abstract class AbstractProcessFactory<T extends AbstractBuildBO> implemen
             pre = pre.getNext();
             count++;
         }
+        /**
+         * 不是同一个组就放到链表最后
+         */
         for (Map.Entry<HandlerGroupEnum, HandlerTypeEnum> entry : map.entrySet()) {
             HandlerNode<T> newNode = new HandlerNode<>();
             BuildHandler<T> buildHandler = this.buildStorage.getBuildHandler(entry.getValue());
@@ -167,6 +171,10 @@ public abstract class AbstractProcessFactory<T extends AbstractBuildBO> implemen
 
     public abstract OrderTypeEnum getOrderType();
 
+    /**
+     * 采用什么内部实现
+     * @return
+     */
     public abstract StructureTypeEnum getStructureType();
 
 

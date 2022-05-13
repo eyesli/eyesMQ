@@ -46,7 +46,5 @@ public class BeanTest {
         long endTime = System.currentTimeMillis();
         long usedTime = (endTime - startTime);
         System.out.println("usedTime = " + usedTime);
-//        List<HandlerTypeEnum> objects = Lists.newArrayList(DEFAULT_1,DEFAULT_2, DEFAULT_3);
-////        objects.parallelStream().forEach(e-> buildStorage.build(new Big(),e));
     }
 }
