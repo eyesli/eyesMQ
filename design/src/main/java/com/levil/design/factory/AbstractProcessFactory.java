@@ -31,14 +31,10 @@ public abstract class AbstractProcessFactory<T extends AbstractBuildBO> implemen
     @Autowired
     private BuildStorage<T> buildStorage;
 
-    @PostConstruct
-    private void init() {
-        this.buildStorage.registerFactory(getOrderType(), this);
-    }
 
     @Override
     public void run(String... args) {
-        //构造 成员变量 defaultProcessMap 和 header
+        this.buildStorage.registerFactory(getOrderType(), this);
         this.initDefaultCommonProcessData();
     }
 
@@ -136,6 +132,7 @@ public abstract class AbstractProcessFactory<T extends AbstractBuildBO> implemen
             /**
              * 同一个组就替换
              */
+
             if (map.containsKey(que.getHandlerGroupEnum())) {
                 HandlerNode<T> next = que.getNext();
                 HandlerNode<T> newNode = new HandlerNode<>();
@@ -160,7 +157,7 @@ public abstract class AbstractProcessFactory<T extends AbstractBuildBO> implemen
             newNode.setHandlerGroupEnum(entry.getKey());
             pre.setNext(newNode);
             pre = pre.getNext();
-            handlerNode.setLength(handlerNode.getLength()+1);
+            handlerNode.setLength(handlerNode.getLength() + 1);
         }
         return handlerNode;
     }
@@ -173,6 +170,7 @@ public abstract class AbstractProcessFactory<T extends AbstractBuildBO> implemen
 
     /**
      * 采用什么内部实现
+     *
      * @return
      */
     public abstract StructureTypeEnum getStructureType();

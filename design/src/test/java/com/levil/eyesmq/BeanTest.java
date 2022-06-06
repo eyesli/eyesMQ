@@ -32,10 +32,17 @@ public class BeanTest {
 
     @Test
     public void getBeanNamesForType() {
-        String[] beanDefinitionNames = applicationContext.getBeanNamesForType(AbstractBuildHandler.class);
+        String[] beanDefinitionNames = applicationContext.getBeanNamesForType(BuildHandler.class);
         for (String beanDefinitionName : beanDefinitionNames) {
-            System.out.println("beanDefinitionName = " + beanDefinitionName);
+            BuildHandler bean = (BuildHandler) applicationContext.getBean(beanDefinitionName);
+            if (bean instanceof AbstractBuildHandler){
+                System.out.println("bean 1= " + bean);
+            }
+            else {
+                System.out.println("bean2 = " + bean);
+            }
         }
+
     }
 
 

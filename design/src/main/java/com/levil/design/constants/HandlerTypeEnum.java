@@ -1,5 +1,6 @@
 package com.levil.design.constants;
 
+import com.levil.design.handler.BuildHandler;
 import com.levil.design.handler.impl.abstra.AbstractBuildHandler;
 import com.levil.design.handler.impl.common.*;
 import com.levil.design.handler.impl.ot1.*;
@@ -32,7 +33,7 @@ public enum HandlerTypeEnum {
     //类型递增
     private final Integer type;
     //枚举对应的类
-    private final Class<? extends AbstractBuildHandler> aClass;
+    private final Class<? extends BuildHandler> aClass;
     //枚举在哪个组，多个枚举构成一个组。就算是重写了，我也要知道你重写的是哪部分内容。方便管理
     private final HandlerGroupEnum handlerGroupEnum;
     //描述

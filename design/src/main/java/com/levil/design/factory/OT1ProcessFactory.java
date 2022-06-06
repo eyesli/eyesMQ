@@ -28,5 +28,6 @@ public class OT1ProcessFactory extends AbstractProcessFactory<Big> {
     @Override
     public StructureTypeEnum getStructureType() {
         return StructureTypeEnum.HASH_ORDER;
+
     }
 }

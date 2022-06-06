@@ -29,6 +29,7 @@
         <module>common</module>
         <module>remoting</module>
         <module>design</module>
+        <module>mongoDB</module>
 
 
     </modules>

@@ -8,7 +8,6 @@ import java.util.concurrent.CompletableFuture;
 
 @Getter
 @AllArgsConstructor
-@SuppressWarnings("all")
 public enum AsyncModeEnum {
     RUN_ASYNC("异步不等待,跟build无关的数据，比如存入日志，发送邮件") {
         @Override
