@@ -15,23 +15,4 @@ public enum HandlerGroupEnum {
     REMIT_TO("REMIT_TO"),
     ADDRESS("ADDRESS");
     private final String desc;
-
-//    //这个模块有哪些实现
-//    public static List<HandlerTypeEnum> getHandlerTypeEnumList(HandlerGroupEnum groupEnum){
-//        switch (groupEnum){
-//            case HEADER:
-//                return Lists.newArrayList(DEFAULT_1, DEFAULT_2);
-//            case LOGO:
-//                return Lists.newArrayList(DEFAULT_3, DEFAULT_4);
-//            case BILL_TO:
-//                return Lists.newArrayList(DEFAULT_5,DEFAULT_6);
-//            case REMIT_TO:
-//                return Lists.newArrayList(DEFAULT_7,DEFAULT_8);
-//            case ADDRESS:
-//                return Lists.newArrayList(DEFAULT_16);
-//            default:
-//                return null;
-//        }
-//    }
-
 }
